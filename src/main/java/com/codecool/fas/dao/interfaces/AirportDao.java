@@ -5,5 +5,5 @@ import com.codecool.fas.model.Airport;
 import java.util.List;
 
 public interface AirportDao {
-    List<Airport> getAirportsBySearch(String subString);
+    List<Airport> getAirportsBySubstring(String subString);
 }

@@ -119,4 +119,11 @@ public class Flight {
         this.businessPrice = businessPrice;
     }
 
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
 }

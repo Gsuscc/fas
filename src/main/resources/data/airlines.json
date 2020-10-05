@@ -1,0 +1,63 @@
+[
+  {
+    "name": "Emirates",
+    "code": "EK",
+    "logo": "https://www.esky.hu/_fe/img/al_logo_signet_EK.png"
+  },
+  {
+    "name": "RyanAir",
+    "code": "FR",
+    "logo": "https://www.esky.hu/_fe/img/al_logo_signet_FR.png"
+  },
+  {
+    "name": "Wizz Air",
+    "code": "W6",
+    "logo": "https://www.esky.hu/_fe/img/al_logo_signet_W6.png"
+  },
+  {
+    "name": "easyJet",
+    "code": "U2",
+    "logo": "https://www.esky.hu/_fe/img/al_logo_signet_U2.png"
+  },
+  {
+    "name": "Lufthansa",
+    "code": "LH",
+    "logo": "https://www.esky.hu/_fe/img/al_logo_signet_LH.png"
+  },
+  {
+    "name": "KLM",
+    "code": "KL",
+    "logo": "https://www.esky.hu/_fe/img/al_logo_signet_KL.png"
+  },
+  {
+    "name": "British Airways",
+    "code": "BA",
+    "logo": "https://www.esky.hu/_fe/img/al_logo_signet_BA.png"
+  },
+  {
+    "name": "Air France",
+    "code": "AF",
+    "logo": "https://www.esky.hu/_fe/img/al_logo_signet_AF.png"
+  },
+  {
+    "name": "American Airlines",
+    "code": "AA",
+    "logo": "https://www.esky.hu/_fe/img/al_logo_signet_AA.png"
+  },
+  {
+    "name": "Malév",
+    "code": "MA",
+    "logo": "https://www.esky.hu/res/b1422/eui/static/img/logos/airlines/125x31/MA.png"
+  },
+  {
+    "name": "Alitalia",
+    "code": "AZ",
+    "logo": "https://www.esky.hu/_fe/img/al_logo_signet_AZ.png"
+  },
+  {
+    "name": "Quantas",
+    "code": "QF",
+    "logo": "https://www.esky.hu/_fe/img/al_logo_signet_QF.png"
+  }
+
+]

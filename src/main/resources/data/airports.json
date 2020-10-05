@@ -1,0 +1,406 @@
+[
+  {
+    "label": "Berlin (SXF) Schönefeld",
+    "code": "SXF",
+    "countryName": "Germany",
+    "child": "BER",
+    "cityName": "Berlin",
+    "airportName": "Schönefeld",
+    "latitude": 52.502777777778,
+    "longitude": 13.508611111111
+  },
+  {
+    "label": "Berlin (BER) Brandenburg",
+    "code": "BER",
+    "countryName": "Germany",
+    "child": "BER",
+    "cityName": "Berlin",
+    "airportName": "Brandenburg",
+    "latitude": 52.502777777778,
+    "longitude": 13.508611111111
+  },
+  {
+    "label": "Budapest (BUD) Liszt Ferenc",
+    "code":	"BUD",
+    "countryName": "Hungary",
+    "cityName":	"Budapest",
+    "airportName": "Liszt Ferenc",
+    "latitude": 47.433333333333,
+    "longitude": 19.233333333333
+  },
+  {
+    "label": "Stockholm (ARN) Arlanda",
+    "code": "ARN",
+    "countryName": "Sweden",
+    "child": "STO",
+    "cityName": "Stockholm",
+    "airportName": "Arlanda",
+    "latitude": 59.6525,
+    "longitude": 17.921944444444
+  },
+  {
+    "label": "Stockholm (BMA) Bromma",
+    "code": "BMA",
+    "countryName": "Sweden",
+    "child": "STO",
+    "cityName": "Stockholm",
+    "airportName": "Bromma",
+    "latitude": 62.383333333333,
+    "longitude": 17.3
+  },
+  {
+    "label": "Stockholm (VST) Vasteras",
+    "code": "VST",
+    "countryName": "Sweden",
+    "child": "STO",
+    "cityName": "Stockholm",
+    "airportName": "Vasteras",
+    "latitude": 59.583333333333,
+    "longitude": 16.633333333333
+  },
+  {
+    "label": "London (LHR) Heathrow",
+    "code": "LHR",
+    "countryName": "United Kingdom",
+    "child": "LON",
+    "cityName": "London",
+    "airportName": "Heathrow",
+    "latitude": 51.466666666667,
+    "longitude": -0.45
+  },
+  {
+    "label": "London (LGW) Gatwick",
+    "code": "LGW",
+    "countryName": "United Kingdom",
+    "child": "LON",
+    "cityName": "London",
+    "airportName": "Gatwick",
+    "latitude": 51.15,
+    "longitude": -0.18333333333333
+  },
+  {
+    "label": "London (LCY) London City",
+    "code": "LCY",
+    "countryName": "United Kingdom",
+    "child": "LON",
+    "cityName": "London",
+    "airportName": "London City",
+    "latitude": 51.516666666667,
+    "longitude": 0.066666666666667
+  },
+  {
+    "label": "London (STN) Stansted",
+    "code": "STN",
+    "countryName": "United Kingdom",
+    "child": "LON",
+    "cityName": "London",
+    "airportName": "Stansted",
+    "latitude": 51.883333333333,
+    "longitude": 0.23333333333333
+  },
+  {
+    "label": "London (LTN) Luton",
+    "code": "LTN",
+    "countryName": "United Kingdom",
+    "child": "LON",
+    "cityName": "London",
+    "airportName": "Luton",
+    "latitude": 51.866666666667,
+    "longitude": -0.45
+  },
+  {
+    "label": "London (YXU) Ontario",
+    "code": "YXU",
+    "countryName": "Canada",
+    "cityName": "London",
+    "airportName": "Ontario",
+    "latitude": 43.033333333333,
+    "longitude": -81.15
+  },
+  {
+    "label": "Derry (LDY) Eglinton",
+    "code": "LDY",
+    "countryName": "United Kingdom",
+    "cityName": "Derry",
+    "airportName": "Eglinton",
+    "latitude": 55.05,
+    "longitude": -7.15
+  },
+  {
+    "label": "Paris (CDG) Charles de Gaulle",
+    "code": "CDG",
+    "countryName": "France",
+    "child": "PAR",
+    "cityName": "Paris",
+    "airportName": "Charles de Gaulle",
+    "latitude": 49.016666666667,
+    "longitude": 2.55
+  },
+  {
+    "label": "Paris (ORY) Orly",
+    "code": "ORY",
+    "countryName": "France",
+    "child": "PAR",
+    "cityName": "Paris",
+    "airportName": "Orly",
+    "latitude": 48.716666666667,
+    "longitude": 2.3833333333333
+  },
+  {
+    "label": "Rome (FCO) Fiumicino",
+    "code": "FCO",
+    "countryName": "Italy",
+    "child": "ROM",
+    "cityName": "Rome",
+    "airportName": "Fiumicino",
+    "latitude": 41.799722222222,
+    "longitude": 12.234166666667
+  },
+  {
+    "label": "Rome (CIA) Ciampino",
+    "code": "CIA",
+    "countryName": "Italy",
+    "child": "ROM",
+    "cityName": "Rome",
+    "airportName": "Ciampino",
+    "latitude": 41.802777777778,
+    "longitude": 12.233333333333
+  },
+  {
+    "label": "Madrid (MAD) Adolfo Suárez Barajas ",
+    "code": "MAD",
+    "countryName": "Spain",
+    "cityName": "Madrid",
+    "airportName": "Adolfo Suárez Barajas",
+    "latitude": 40.466666666667,
+    "longitude": -3.5666666666667
+  },
+  {
+    "label": "Barcelona (BCN) El Prat",
+    "code": "BCN",
+    "countryName": "Spain",
+    "child": "BCN",
+    "cityName": "Barcelona",
+    "airportName": "El Prat",
+    "latitude": 41.3,
+    "longitude": 2.0833333333333
+  },
+  {
+    "label": "Barcelona (BLA) General J.A. Anzoategui",
+    "code": "BLA",
+    "countryName": "Venezuela",
+    "cityName": "Barcelona",
+    "airportName": "General J.A. Anzoategui",
+    "latitude": 10.121388888889,
+    "longitude": -64.695833333333
+  },
+  {
+    "label": "Moscow (DME) Domodedovo",
+    "code": "DME",
+    "countryName": "Russia",
+    "child": "MOW",
+    "cityName": "Moscow",
+    "airportName": "Domodedovo",
+    "latitude": 55.4,
+    "longitude": 37.883333333333
+  },
+  {
+    "label": "Moscow (SVO) Sheremetyevo",
+    "code": "SVO",
+    "countryName": "Russia",
+    "child": "MOW",
+    "cityName": "Moscow",
+    "airportName": "Sheremetyevo",
+    "latitude": 55.969444444444,
+    "longitude": 37.416666666667
+  },
+  {
+    "label": "Moscow (VKO) Vnukovo",
+    "code": "VKO",
+    "countryName": "Russia",
+    "child": "MOW",
+    "cityName": "Moscow",
+    "airportName": "Vnukovo",
+    "latitude": 55.583333333333,
+    "longitude": 37.266666666667
+  },
+  {
+    "label": "Pullman (PUW) Moscow Regional",
+    "code": "PUW",
+    "countryName": "United States",
+    "cityName": "Pullman",
+    "airportName": "Moscow Regional",
+    "latitude": 46.75,
+    "longitude": -117.11666666667
+  },
+  {
+    "label": "Istanbul (IST) New Airport",
+    "code": "IST",
+    "countryName": "Turkey",
+    "child": "IST",
+    "cityName": "Istanbul",
+    "airportName": "Ataturk",
+    "latitude": 40.966666666667,
+    "longitude": 28.816666666667
+  },
+  {
+    "label": "Sydney (SYD) Kingsford Smith",
+    "code": "SYD",
+    "countryName": "Australia",
+    "cityName": "Sydney",
+    "airportName": "Kingsford Smith",
+    "latitude": -33.933333333333,
+    "longitude": 151.16666666667
+  },
+  {
+    "label": "Sydney (YQY) J. A. Douglas McCurdy",
+    "code": "YQY",
+    "countryName": "Canada",
+    "cityName": "Sydney",
+    "airportName": "J. A. Douglas McCurdy",
+    "latitude": 46.166666666667,
+    "longitude": -60.05
+  },
+  {
+    "label": "Mexico City (MEX) B. Juarez International",
+    "code": "MEX",
+    "countryName": "Mexico",
+    "child": "MEX",
+    "cityName": "Mexico City",
+    "airportName": "B. Juarez International",
+    "latitude": 19.433333333333,
+    "longitude": -99.083333333333
+  },
+  {
+    "label": "Cancun (CUN) International",
+    "code": "CUN",
+    "countryName": "Mexico",
+    "cityName": "Cancun",
+    "airportName": "Cancun International]",
+    "latitude": 21.083333333333,
+    "longitude": -86.766666666667
+  },
+  {
+    "label": "Tokyo (NRT) Narita International",
+    "code": "NRT",
+    "countryName": "Japan",
+    "child": "TYO",
+    "cityName": "Tokyo",
+    "airportName": "Narita International",
+    "latitude": 35.766666666667,
+    "longitude": 140.31666666667
+  },
+  {
+    "label": "Tokyo (HND) Haneda International",
+    "code": "HND",
+    "countryName": "Japan",
+    "child": "TYO",
+    "cityName": "Tokyo",
+    "airportName": "Haneda International",
+    "latitude": 35.552777777778,
+    "longitude": 139.76666666667
+  },
+  {
+    "label": "Beijing (PEK) Capital International",
+    "code": "PEK",
+    "countryName": "China",
+    "child": "BJS",
+    "cityName": "Beijing",
+    "airportName": "Capital International",
+    "latitude": 40.05,
+    "longitude": 116.58333333333
+  },
+  {
+    "label": "Singapore (SIN) Changi",
+    "code": "SIN",
+    "countryName": "Singapore",
+    "cityName": "Singapore",
+    "airportName": "Changi",
+    "latitude": 1.2916666666667,
+    "longitude": 103.85
+  },
+  {
+    "label": "Miami (MIA) International",
+    "code": "MIA",
+    "countryName": "United States",
+    "child": "MIA",
+    "cityName": "Miami",
+    "airportName": "International",
+    "latitude": 25.8,
+    "longitude": -80.283333333333
+  },
+  {
+    "label": "Fort Lauderdale (FLL) International",
+    "code": "FLL",
+    "countryName": "United States",
+    "child": "MIA",
+    "cityName": "Fort Lauderdale",
+    "airportName": "International",
+    "latitude": 26.066666666667,
+    "longitude": -80.166666666667
+  },
+  {
+    "label": "Denver (DEN) International",
+    "code": "DEN",
+    "countryName": "United States",
+    "cityName": "Denver",
+    "airportName": "International",
+    "latitude": 39.766666666667,
+    "longitude": -104.88333333333
+  },
+  {
+    "label": "Cape Town (CPT) International",
+    "code": "CPT",
+    "countryName": "South Africa",
+    "cityName": "Cape Town",
+    "airportName": "International",
+    "latitude": -33.916666666667,
+    "longitude": 18.366666666667
+  },
+  {
+    "label": "Cape Lisburne (LUR) ",
+    "code": "LUR",
+    "countryName": "United States",
+    "cityName": "Cape Lisburne",
+    "airportName": "",
+    "latitude": 68.866666666667,
+    "longitude": -166.1
+  },
+  {
+    "label": "Helsinki (HEL) Vantaa",
+    "code": "HEL",
+    "countryName": "Finland",
+    "cityName": "Helsinki",
+    "airportName": "Vantaa",
+    "latitude": 60.166666666667,
+    "longitude": 24.966666666667
+  },
+  {
+    "label": "Athens (AHN) Georgia",
+    "code": "AHN",
+    "countryName": "United States",
+    "cityName": "Athens",
+    "airportName": "Georgia",
+    "latitude": 33.95,
+    "longitude": -83.333333333333
+  },
+  {
+    "label": "Athens (ATH) Eleftherios Venizelos",
+    "code": "ATH",
+    "countryName": "Greece",
+    "cityName": "Athens",
+    "airportName": "Eleftherios Venizelos",
+    "latitude": 37.9,
+    "longitude": 23.733333333333
+  },
+  {
+    "label": "Atlanta (ATL) Hartsfield-Jackson International",
+    "code": "ATL",
+    "countryName": "United States",
+    "child": "ATL",
+    "cityName": "Atlanta",
+    "airportName": "Hartsfield-Jackson International",
+    "latitude": 33.65,
+    "longitude": -84.433333333333
+  }
+]
