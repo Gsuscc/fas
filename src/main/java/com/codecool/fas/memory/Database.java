@@ -25,9 +25,9 @@ public class Database {
 
         Gson gson = new Gson();
 
-        String jsonAirlines = FileHandler.read("resources/data/airlines.json");
-        String jsonAirports = FileHandler.read("resources/data/airports.json");
-        String jsonFlights = FileHandler.read("resources/data/flights.json");
+        String jsonAirlines = FileHandler.read("src/main/resources/data/airlines.json");
+        String jsonAirports = FileHandler.read("src/main/resources/data/airports.json");
+        String jsonFlights = FileHandler.read("src/main/resources/data/flights_dummy.json");
 
         Type airlinesListType = new TypeToken<Collection<Airline>>() {}.getType();
         Type airportsListType = new TypeToken<Collection<Airport>>() {}.getType();

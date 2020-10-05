@@ -21,6 +21,7 @@ public class FileHandler {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+        System.out.println("Sucessfully readed " + path);
         return stringBuilder.toString();
     }
 
