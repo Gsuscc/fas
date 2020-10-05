@@ -1,15 +1,14 @@
-package com.codecool.fas.model;
+package com.codecool.fas.model.http;
 
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class Response<T> {
 
-    String status;
-    List<T> values;
-    String errorMessage;
+    private String status;
+    private List<T> values;
+    private String errorMessage;
 
     public Response() {
     }

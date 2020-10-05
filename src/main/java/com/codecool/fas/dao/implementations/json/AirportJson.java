@@ -3,10 +3,7 @@ package com.codecool.fas.dao.implementations.json;
 import com.codecool.fas.dao.interfaces.AirportDao;
 import com.codecool.fas.memory.Database;
 import com.codecool.fas.model.Airport;
-import com.codecool.fas.model.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;

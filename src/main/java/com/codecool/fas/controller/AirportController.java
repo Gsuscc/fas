@@ -1,10 +1,11 @@
 package com.codecool.fas.controller;
 
 
-import com.codecool.fas.dao.interfaces.AirlineDao;
 import com.codecool.fas.dao.interfaces.AirportDao;
 import com.codecool.fas.model.Airport;
-import com.codecool.fas.model.Response;
+import com.codecool.fas.model.http.Response;
+import com.codecool.fas.model.http.ResponseData;
+import com.codecool.fas.model.http.ResponseError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,14 +28,12 @@ public class AirportController {
 
     @GetMapping("/query")
     public Response<Airport> getAirports(@RequestParam String substring) {
-        Response<Airport> response = new Response<>();
+        Response<Airport> response;
         try {
             List<Airport> airports = airportJson.getAirportsBySubstring(substring);
-            response.setStatus("success");
-            response.setValues(airports);
+            response = new ResponseData<>(airports);
         } catch (NoSuchElementException e) {
-            response.setStatus("error");
-            response.setErrorMessage("Not found");
+            response = new ResponseError<>("No Such Element: " + substring);
         }
         return response;
     };
