@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+
 public class FileHandler {
     public static String read(String path) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -21,7 +22,7 @@ public class FileHandler {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        System.out.println("Sucessfully readed " + path);
+        System.out.println("Sucessfully read " + path);
         return stringBuilder.toString();
     }
 

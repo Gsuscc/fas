@@ -6,6 +6,12 @@ public class FlightQuery {
     private Flight returnTicket;
     private Integer person;
 
+    public FlightQuery(Flight ticket, Flight returnTicket, Integer person) {
+        this.ticket = ticket;
+        this.returnTicket = returnTicket;
+        this.person = person;
+    }
+
     public Flight getTicket() {
         return ticket;
     }
