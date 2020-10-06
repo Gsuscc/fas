@@ -29,17 +29,26 @@ public class FlightController {
     }
 
 
-    @GetMapping("/query")
+    @GetMapping(value = "/query", params = {"fromCode", "toCode", "tripDate", "person",})
+    public Response<FlightQuery> getAirports(@RequestParam String fromCode, @RequestParam String toCode, @RequestParam String tripDate, @RequestParam String person) {
+        Response<FlightQuery> response;
+        List<FlightQuery> flights;
+        try {
+            flights = flightJson.getFlights(fromCode, toCode, getLocalDate(tripDate), Integer.valueOf(person));
+            response = new ResponseData<>(flights);
+        } catch (Exception e) {
+            response = new ResponseError<>("error!!!");
+        }
+        return response;
+    }
+
+    @GetMapping(value = "/query", params = {"fromCode", "toCode", "tripDate", "returnDate", "person",})
     public Response<FlightQuery> getAirports(@RequestParam String fromCode, @RequestParam String toCode, @RequestParam String tripDate, @RequestParam String returnDate, @RequestParam String person) {
         Response<FlightQuery> response;
         List<FlightQuery> flights;
         try {
             LocalDate trip = getLocalDate(tripDate);
-            if (returnDate != null) {
-                 flights = flightJson.getFlights(fromCode, toCode, trip, getLocalDate(returnDate), Integer.valueOf(person));
-            }else {
-                 flights = flightJson.getFlights(fromCode, toCode, trip, Integer.valueOf(person));
-            }
+            flights = flightJson.getFlights(fromCode, toCode, trip, getLocalDate(returnDate), Integer.valueOf(person));
             response = new ResponseData<>(flights);
         } catch (Exception e) {
             response = new ResponseError<>("error!!!");
@@ -49,9 +58,9 @@ public class FlightController {
 
     private LocalDate getLocalDate(String date) {
         return LocalDate.of(
-                        Integer.parseInt(date.split("-")[0]),
-                        Integer.parseInt(date.split("-")[1]),
-                        Integer.parseInt(date.split("-")[2]));
+                Integer.parseInt(date.split("-")[0]),
+                Integer.parseInt(date.split("-")[1]),
+                Integer.parseInt(date.split("-")[2]));
     }
 
     ;
