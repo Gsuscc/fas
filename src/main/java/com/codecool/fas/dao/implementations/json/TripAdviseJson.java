@@ -26,15 +26,17 @@ public class TripAdviseJson implements TripAdviseDao {
 
     @Override
     public List<TripAdvise> getAdvices(String fromCountry) {
+        List<TripAdvise> tripAdvises = new ArrayList<>();
         List<Flight> flights = database.getFlights();
         List<City> cities = database.getCities();
-        Collections.shuffle(cities);
         List<Airport> airports = database.getAirports();
         Airport fromAirport = getFromAirport(fromCountry, airports);
-        List<TripAdvise> tripAdvises = new ArrayList<>();
+
+        Collections.shuffle(cities);
+
         cities.forEach(city -> {
-            Airport toAirport = getToAirport(airports, city);
-            Flight flight = getCheapestFlight(flights, fromAirport, toAirport);
+                    Airport toAirport = getToAirport(airports, city);
+                    Flight flight = getCheapestFlight(flights, fromAirport, toAirport);
                     addAdvise(tripAdvises, city, flight);
                 }
         );
@@ -57,12 +59,12 @@ public class TripAdviseJson implements TripAdviseDao {
 
     private Flight getCheapestFlight(List<Flight> flights, Airport fromAirport, Airport toAirport) {
         return flights.stream()
-                        .filter(advisorFlights -> advisorFlights.getFromCode().equals(fromAirport.getCode())
-                                && advisorFlights.getToCode().equals(toAirport.getCode())
-                                && advisorFlights.getDeparture().isAfter(LocalDateTime.now().plusDays(AFTER_DAYS))
-                                && advisorFlights.getDeparture().isBefore(LocalDateTime.now().plusDays(BEFORE_DAYS)))
-                        .min((o1, o2) -> (int) (o1.getBusinessPrice() - o2.getBusinessPrice()))
-                        .orElseThrow();
+                .filter(advisorFlights -> advisorFlights.getFromCode().equals(fromAirport.getCode())
+                        && advisorFlights.getToCode().equals(toAirport.getCode())
+                        && advisorFlights.getDeparture().isAfter(LocalDateTime.now().plusDays(AFTER_DAYS))
+                        && advisorFlights.getDeparture().isBefore(LocalDateTime.now().plusDays(BEFORE_DAYS)))
+                .min((o1, o2) -> (int) (o1.getBusinessPrice() - o2.getBusinessPrice()))
+                .orElseThrow();
     }
 
     private Airport getFromAirport(String fromCountry, List<Airport> airports) {
@@ -74,8 +76,8 @@ public class TripAdviseJson implements TripAdviseDao {
 
     private Airport getToAirport(List<Airport> airports, City city) {
         return airports.stream()
-                                .filter(airport -> airport.getCityName().equals(city.getCityName()))
-                                .findFirst()
-                                .orElseThrow();
+                .filter(airport -> airport.getCityName().equals(city.getCityName()))
+                .findFirst()
+                .orElseThrow();
     }
 }
