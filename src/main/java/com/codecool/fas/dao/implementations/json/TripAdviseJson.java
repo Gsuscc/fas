@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -20,7 +22,7 @@ public class TripAdviseJson implements TripAdviseDao {
     private static final int DEFAULT_QUANTITY = 5;
     private static final int AFTER_DAYS = 1;
     private static final int BEFORE_DAYS = 5;
-    private Database database;
+    private final Database database;
 
 
     public TripAdviseJson(Database database) {
@@ -30,7 +32,7 @@ public class TripAdviseJson implements TripAdviseDao {
     @Override
     public List<TripAdvise> getAdvices(String fromCountry) {
         List<TripAdvise> tripAdvises = new ArrayList<>();
-        List<Flight> flights = database.getFlights();
+        List<Flight> flights = getTrimmedList();
         List<City> cities = database.getCities();
         List<Airport> airports = database.getAirports();
         Airport fromAirport = getFromAirport(fromCountry, airports);
@@ -38,12 +40,20 @@ public class TripAdviseJson implements TripAdviseDao {
         Collections.shuffle(cities);
 
         cities.forEach(city -> {
-                    Airport toAirport = getToAirport(airports, city);
-                    Flight flight = getCheapestFlight(flights, fromAirport, toAirport);
-                    addAdvise(tripAdvises, city, flight);
-                }
-        );
+            if(!city.getCityName().equals(fromAirport.getCityName())) {
+                Airport toAirport = getToAirport(airports, city);
+                Flight flight = getCheapestFlight(flights, fromAirport, toAirport);
+                addAdvise(tripAdvises, city, flight);
+            }
+        });
         return tripAdvises;
+    }
+
+    private List<Flight> getTrimmedList() {
+        return database.getFlights().stream().filter(advisorFlights ->
+                advisorFlights.getDeparture().isAfter(LocalDateTime.now().plusDays(AFTER_DAYS)) &&
+                advisorFlights.getDeparture().isBefore(LocalDateTime.now().plusDays(BEFORE_DAYS))
+        ).collect(Collectors.toList());
     }
 
     private void addAdvise(List<TripAdvise> tripAdvises, City city, Flight flight) {
@@ -63,10 +73,8 @@ public class TripAdviseJson implements TripAdviseDao {
     private Flight getCheapestFlight(List<Flight> flights, Airport fromAirport, Airport toAirport) {
         return flights.stream()
                 .filter(advisorFlights -> advisorFlights.getFromCode().equals(fromAirport.getCode())
-                        && advisorFlights.getToCode().equals(toAirport.getCode())
-                        && advisorFlights.getDeparture().isAfter(LocalDateTime.now().plusDays(AFTER_DAYS))
-                        && advisorFlights.getDeparture().isBefore(LocalDateTime.now().plusDays(BEFORE_DAYS)))
-                .min((o1, o2) -> (int) (o1.getBusinessPrice() - o2.getBusinessPrice()))
+                        && advisorFlights.getToCode().equals(toAirport.getCode()))
+                .min(Comparator.comparingDouble(Flight::getBusinessPrice))
                 .orElseThrow();
     }
 
