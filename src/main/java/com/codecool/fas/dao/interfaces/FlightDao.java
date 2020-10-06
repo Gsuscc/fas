@@ -37,9 +37,11 @@ public interface FlightDao {
                                  LocalDate tripDate,
                                  LocalDate tripBackDate,
                                  Integer person,
+                                 LocalTime timeFrom,
+                                 LocalTime timeTo,
                                  List<String> airlineCode,
-                                 Integer priceFrom,
-                                 Integer priceTo
+                                 Double priceFrom,
+                                 Double priceTo
     );
 
 }
