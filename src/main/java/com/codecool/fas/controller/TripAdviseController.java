@@ -7,11 +7,10 @@ import com.codecool.fas.model.http.Response;
 import com.codecool.fas.model.http.ResponseData;
 import com.codecool.fas.model.http.ResponseError;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+
+@CrossOrigin
 @RestController
 @RequestMapping("/advisor")
 public class TripAdviseController {
