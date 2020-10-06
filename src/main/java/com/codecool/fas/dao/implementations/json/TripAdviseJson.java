@@ -6,12 +6,15 @@ import com.codecool.fas.model.Airport;
 import com.codecool.fas.model.City;
 import com.codecool.fas.model.Flight;
 import com.codecool.fas.model.TripAdvise;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+@Component
 public class TripAdviseJson implements TripAdviseDao {
 
     private static final int DEFAULT_QUANTITY = 5;
