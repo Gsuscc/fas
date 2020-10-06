@@ -15,20 +15,21 @@ import java.util.stream.Collectors;
 public class FlightJson implements FlightDao {
 
     Database database;
+    private final List<Flight> flights;
 
     public FlightJson(Database database) {
         this.database = database;
+        flights = database.getFlights();
     }
 
     @Override
     public List<FlightQuery> getFlights(String departureCode, String arriveCode, LocalDate tripDate, Integer person) {
-        List<Flight> flights = database.getFlights();
         List<FlightQuery> result = new ArrayList<>();
         flights.forEach(flight -> {
             if (flight.getFromCode().equals(departureCode)
                     && flight.getToCode().equals(arriveCode)
                     && flight.getDeparture().toLocalDate().equals(tripDate)) {
-                    result.add(new FlightQuery(flight, null, person));
+                result.add(new FlightQuery(flight, null, person));
             }
         });
         return result;
@@ -41,7 +42,24 @@ public class FlightJson implements FlightDao {
 
     @Override
     public List<FlightQuery> getFlights(String departureCode, String arriveCode, LocalDate tripDate, LocalDate tripBackDate, Integer person) {
-        return null;
+        List<FlightQuery> result = new ArrayList<>();
+
+        List<Flight> toFlights = flights.stream().filter(flight -> flight.getFromCode().equals(departureCode)
+                && flight.getToCode().equals(arriveCode)
+                && flight.getDeparture().toLocalDate().equals(tripDate)).collect(Collectors.toList());
+
+
+        List<Flight> backFlights = flights.stream().filter(flight -> flight.getFromCode().equals(arriveCode)
+                && flight.getToCode().equals(departureCode)
+                && flight.getDeparture().toLocalDate().equals(tripBackDate)).collect(Collectors.toList());
+
+        toFlights.forEach(flight -> {
+            backFlights.forEach(backFlight -> {
+                    result.add(new FlightQuery(flight, backFlight, person));
+            });
+        });
+
+        return result;
     }
 
     @Override

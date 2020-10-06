@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -29,24 +30,30 @@ public class FlightController {
 
 
     @GetMapping("/query")
-    public Response<FlightQuery> getAirports(@RequestParam String fromCode, @RequestParam String toCode, @RequestParam String tripDate, @RequestParam String person) {
+    public Response<FlightQuery> getAirports(@RequestParam String fromCode, @RequestParam String toCode, @RequestParam String tripDate, @RequestParam String returnDate, @RequestParam String person) {
         Response<FlightQuery> response;
-        System.out.println(fromCode);
-        System.out.println(toCode);
-        System.out.println(tripDate);
-        System.out.println(person);
+        List<FlightQuery> flights;
         try {
-            LocalDate trip = LocalDate.of(
-                            Integer.parseInt(tripDate.split("-")[0]),
-                            Integer.parseInt(tripDate.split("-")[1]),
-                            Integer.parseInt(tripDate.split("-")[2]));
-
-            List<FlightQuery> flights = flightJson.getFlights(fromCode, toCode, trip, Integer.valueOf(person));
+            LocalDate trip = getLocalDate(tripDate);
+            if (returnDate != null) {
+                 flights = flightJson.getFlights(fromCode, toCode, trip, getLocalDate(returnDate), Integer.valueOf(person));
+            }else {
+                 flights = flightJson.getFlights(fromCode, toCode, trip, Integer.valueOf(person));
+            }
             response = new ResponseData<>(flights);
         } catch (Exception e) {
-            response = new ResponseError<>("error!!!" );
+            response = new ResponseError<>("error!!!");
         }
         return response;
-    };
+    }
+
+    private LocalDate getLocalDate(String date) {
+        return LocalDate.of(
+                        Integer.parseInt(date.split("-")[0]),
+                        Integer.parseInt(date.split("-")[1]),
+                        Integer.parseInt(date.split("-")[2]));
+    }
+
+    ;
 
 }
