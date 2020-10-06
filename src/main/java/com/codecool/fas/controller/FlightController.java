@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -29,7 +31,7 @@ public class FlightController {
     }
 
 
-    @GetMapping(value = "/query", params = {"fromCode", "toCode", "tripDate", "person",})
+    @GetMapping(value = "/query", params = {"fromCode", "toCode", "tripDate", "person"})
     public Response<FlightQuery> getAirports(@RequestParam String fromCode, @RequestParam String toCode, @RequestParam String tripDate, @RequestParam String person) {
         Response<FlightQuery> response;
         List<FlightQuery> flights;
@@ -42,7 +44,19 @@ public class FlightController {
         return response;
     }
 
-    @GetMapping(value = "/query", params = {"fromCode", "toCode", "tripDate", "returnDate", "person",})
+    @GetMapping(value = "/query", params = {"fromCode", "toCode", "tripDate", "person", "timeFrom", "timeTo", "priceFrom", "priceTo", "airlineCode"})
+    public Response<FlightQuery> getAirports(@RequestParam String fromCode, @RequestParam String toCode, @RequestParam String tripDate, @RequestParam String person, @RequestParam String timeFrom, @RequestParam String timeTo, @RequestParam String priceFrom, @RequestParam String priceTo, @RequestParam String[] airlineCode) {
+        Response<FlightQuery> response;
+        List<FlightQuery> flights;
+        try {
+            flights = flightJson.getFlights(fromCode, toCode, getLocalDate(tripDate), Integer.valueOf(person),getLocalTime(timeFrom),getLocalTime(timeTo), Arrays.asList(airlineCode),Double.parseDouble(priceFrom),Double.parseDouble(priceTo));
+            response = new ResponseData<>(flights);
+        } catch (Exception e) {
+            response = new ResponseError<>("error!!!");
+        }
+        return response;
+    }
+    @GetMapping(value = "/query", params = {"fromCode", "toCode", "tripDate", "returnDate", "person"})
     public Response<FlightQuery> getAirports(@RequestParam String fromCode, @RequestParam String toCode, @RequestParam String tripDate, @RequestParam String returnDate, @RequestParam String person) {
         Response<FlightQuery> response;
         List<FlightQuery> flights;
@@ -63,6 +77,12 @@ public class FlightController {
                 Integer.parseInt(date.split("-")[2]));
     }
 
-    ;
+    private LocalTime getLocalTime(String date) {
+        return LocalTime.of(
+                Integer.parseInt(date.split(":")[0]),
+                Integer.parseInt(date.split(":")[1]),
+                Integer.parseInt(date.split(":")[2]));
+    }
+
 
 }
