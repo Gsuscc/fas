@@ -30,36 +30,52 @@ public class TripAdviseJson implements TripAdviseDao {
         List<City> cities = database.getCities();
         Collections.shuffle(cities);
         List<Airport> airports = database.getAirports();
-        Airport fromAirport = airports.stream()
-                .filter(airport -> airport.getCountryName().equals(fromCountry))
-                .findFirst()
-                .orElse(airports.get(DEFAULT_QUANTITY));
+        Airport fromAirport = getFromAirport(fromCountry, airports);
         List<TripAdvise> tripAdvises = new ArrayList<>();
         cities.forEach(city -> {
-                    Airport toAirport = airports.stream()
-                            .filter(airport -> airport.getCityName().equals(city.getCityName()))
-                            .findFirst()
-                            .orElseThrow();
-                    Flight flight = flights.stream()
-                            .filter(advisorFlights -> advisorFlights.getFromCode().equals(fromAirport.getCode())
-                                    && advisorFlights.getToCode().equals(toAirport.getCode())
-                                    && advisorFlights.getDeparture().isAfter(LocalDateTime.now().plusDays(AFTER_DAYS))
-                                    && advisorFlights.getDeparture().isBefore(LocalDateTime.now().plusDays(BEFORE_DAYS)))
-                            .min((o1, o2) -> (int) (o1.getBusinessPrice() - o2.getBusinessPrice()))
-                            .orElseThrow();
-                    tripAdvises.add(new TripAdvise(
-                                    city.getCityImage().toString(),
-                                    String.format("/airport/query?fromCode=%s&toCode=%s&tripDate=%s&person=1",
-                                            flight.getFromCode(),
-                                            flight.getToCode(),
-                                            flight.getDeparture().toLocalDate().toString()),
-                                    flight.getTouristPrice(),
-                                    city.getCityName(),
-                                    city.getCountryName()
-                            )
-                    );
+            Airport toAirport = getToAirport(airports, city);
+            Flight flight = getCheapestFlight(flights, fromAirport, toAirport);
+                    addAdvise(tripAdvises, city, flight);
                 }
         );
         return tripAdvises;
+    }
+
+    private void addAdvise(List<TripAdvise> tripAdvises, City city, Flight flight) {
+        tripAdvises.add(new TripAdvise(
+                        city.getCityImage().toString(),
+                        String.format("/airport/query?fromCode=%s&toCode=%s&tripDate=%s&person=1",
+                                flight.getFromCode(),
+                                flight.getToCode(),
+                                flight.getDeparture().toLocalDate().toString()),
+                        flight.getTouristPrice(),
+                        city.getCityName(),
+                        city.getCountryName()
+                )
+        );
+    }
+
+    private Flight getCheapestFlight(List<Flight> flights, Airport fromAirport, Airport toAirport) {
+        return flights.stream()
+                        .filter(advisorFlights -> advisorFlights.getFromCode().equals(fromAirport.getCode())
+                                && advisorFlights.getToCode().equals(toAirport.getCode())
+                                && advisorFlights.getDeparture().isAfter(LocalDateTime.now().plusDays(AFTER_DAYS))
+                                && advisorFlights.getDeparture().isBefore(LocalDateTime.now().plusDays(BEFORE_DAYS)))
+                        .min((o1, o2) -> (int) (o1.getBusinessPrice() - o2.getBusinessPrice()))
+                        .orElseThrow();
+    }
+
+    private Airport getFromAirport(String fromCountry, List<Airport> airports) {
+        return airports.stream()
+                .filter(airport -> airport.getCountryName().equals(fromCountry))
+                .findFirst()
+                .orElse(airports.get(DEFAULT_QUANTITY));
+    }
+
+    private Airport getToAirport(List<Airport> airports, City city) {
+        return airports.stream()
+                                .filter(airport -> airport.getCityName().equals(city.getCityName()))
+                                .findFirst()
+                                .orElseThrow();
     }
 }
