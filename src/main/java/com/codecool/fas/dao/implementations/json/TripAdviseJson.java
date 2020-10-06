@@ -74,7 +74,7 @@ public class TripAdviseJson implements TripAdviseDao {
         return flights.stream()
                 .filter(advisorFlights -> advisorFlights.getFromCode().equals(fromAirport.getCode())
                         && advisorFlights.getToCode().equals(toAirport.getCode()))
-                .min(Comparator.comparingDouble(Flight::getBusinessPrice))
+                .min(Comparator.comparingDouble(Flight::getTouristPrice))
                 .orElseThrow();
     }
 
