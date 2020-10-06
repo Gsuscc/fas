@@ -2,6 +2,7 @@ package com.codecool.fas.memory;
 
 import com.codecool.fas.model.Airline;
 import com.codecool.fas.model.Airport;
+import com.codecool.fas.model.City;
 import com.codecool.fas.model.Flight;
 import com.codecool.fas.util.FileHandler;
 import com.google.gson.Gson;
@@ -20,6 +21,7 @@ public class Database {
     private final List<Airline> airlines;
     private final List<Airport> airports;
     private final List<Flight> flights;
+    private final List<City> cities;
 
     public Database() {
 
@@ -28,14 +30,21 @@ public class Database {
         String jsonAirlines = FileHandler.read("src/main/resources/data/airlines.json");
         String jsonAirports = FileHandler.read("src/main/resources/data/airports.json");
         String jsonFlights = FileHandler.read("src/main/resources/data/flights_dummy.json");
+        String jsonCities = FileHandler.read("src/main/resources/data/cities.json");
 
-        Type airlinesListType = new TypeToken<Collection<Airline>>() {}.getType();
-        Type airportsListType = new TypeToken<Collection<Airport>>() {}.getType();
-        Type flightListType = new TypeToken<Collection<Flight>>() {}.getType();
+        Type airlinesListType = new TypeToken<Collection<Airline>>() {
+        }.getType();
+        Type airportsListType = new TypeToken<Collection<Airport>>() {
+        }.getType();
+        Type flightListType = new TypeToken<Collection<Flight>>() {
+        }.getType();
+        Type citiesListType = new TypeToken<Collection<City>>() {
+        }.getType();
 
         this.airlines = gson.fromJson(jsonAirlines, airlinesListType);
         this.airports = gson.fromJson(jsonAirports, airportsListType);
         this.flights = gson.fromJson(jsonFlights, flightListType);
+        this.cities = gson.fromJson(jsonCities, citiesListType);
 
     }
 
@@ -49,5 +58,9 @@ public class Database {
 
     public List<Flight> getFlights() {
         return flights;
+    }
+
+    public List<City> getCities() {
+        return cities;
     }
 }
