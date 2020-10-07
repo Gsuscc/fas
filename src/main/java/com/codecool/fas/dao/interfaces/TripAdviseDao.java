@@ -8,6 +8,6 @@ import java.util.List;
 @Component
 public interface TripAdviseDao {
 
-    List<TripAdvise> getAdvices(String fromCountry);
+    List<TripAdvise> getAdvices();
 
 }

@@ -8,6 +8,7 @@ import com.codecool.fas.model.Flight;
 import com.codecool.fas.model.TripAdvise;
 import org.springframework.stereotype.Component;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 @Component
 public class TripAdviseJson implements TripAdviseDao {
 
-    private static final int DEFAULT_QUANTITY = 5;
+    private static final int DEFAULT_AIRPORT = 2;
     private static final int AFTER_DAYS = 1;
     private static final int BEFORE_DAYS = 5;
     private final Database database;
@@ -30,12 +31,12 @@ public class TripAdviseJson implements TripAdviseDao {
     }
 
     @Override
-    public List<TripAdvise> getAdvices(String fromCountry) {
+    public List<TripAdvise> getAdvices() {
         List<TripAdvise> tripAdvises = new ArrayList<>();
         List<Flight> flights = getTrimmedList();
         List<City> cities = database.getCities();
         List<Airport> airports = database.getAirports();
-        Airport fromAirport = getFromAirport(fromCountry, airports);
+        Airport fromAirport = getFromAirport(airports);
 
         Collections.shuffle(cities);
 
@@ -57,16 +58,18 @@ public class TripAdviseJson implements TripAdviseDao {
     }
 
     private void addAdvise(List<TripAdvise> tripAdvises, City city, Flight flight) {
-        tripAdvises.add(new TripAdvise(
-                        city.getCityImage().toString(),
-                        String.format("/airport/query?fromCode=%s&toCode=%s&tripDate=%s&person=1",
-                                flight.getFromCode(),
-                                flight.getToCode(),
-                                flight.getDeparture().toLocalDate().toString()),
-                        flight.getTouristPrice(),
-                        city.getCityName(),
-                        city.getCountryName()
-                )
+        tripAdvises.add(
+            new TripAdvise(
+                city.getCityImage().toString(),
+                String.format("/airport/query?fromCode=%s&toCode=%s&tripDate=%s&person=1",
+                        flight.getFromCode(),
+                        flight.getToCode(),
+                        flight.getDeparture().toLocalDate().toString()
+                ),
+                String.valueOf(flight.getTouristPrice().intValue()),
+                city.getCityName(),
+                city.getCountryName()
+            )
         );
     }
 
@@ -78,11 +81,12 @@ public class TripAdviseJson implements TripAdviseDao {
                 .orElseThrow();
     }
 
-    private Airport getFromAirport(String fromCountry, List<Airport> airports) {
-        return airports.stream()
-                .filter(airport -> airport.getCountryName().equals(fromCountry))
-                .findFirst()
-                .orElse(airports.get(DEFAULT_QUANTITY));
+    private Airport getFromAirport(List<Airport> airports) {
+//        return airports.stream()
+//                .filter(airport -> airport.getCountryName().equals(fromcountry...))
+//                .findFirst()
+//                .orElse(airports.get(DEFAULT_QUANTITY));
+        return airports.get(DEFAULT_AIRPORT);
     }
 
     private Airport getToAirport(List<Airport> airports, City city) {

@@ -10,6 +10,7 @@ public class Airport {
     private String airportName;
     private Double latitude;
     private Double longitude;
+    private String countryCode;
 
     public String getLabel() {
         return label;
@@ -75,4 +76,11 @@ public class Airport {
         this.longitude = longitude;
     }
 
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
 }

@@ -24,10 +24,10 @@ public class TripAdviseController {
     }
 
     @GetMapping
-    public Response<TripAdvise> getAdvises(@RequestParam String country) {
+    public Response<TripAdvise> getAdvises() {
         Response<TripAdvise> response;
         try {
-            response = new ResponseData<>(tripAdviseJson.getAdvices(country)
+            response = new ResponseData<>(tripAdviseJson.getAdvices()
             );
         } catch (Exception e) {
             response = new ResponseError<>(e.getMessage());
