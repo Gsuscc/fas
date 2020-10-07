@@ -20,29 +20,29 @@ import java.util.stream.Collectors;
 @Component
 public class TripAdviseJson implements TripAdviseDao {
 
-    private static final int DEFAULT_AIRPORT = 2;
+    private static final int DEFAULT_AIRPORT = 6;
     private static final int AFTER_DAYS = 1;
     private static final int BEFORE_DAYS = 5;
     private final Database database;
-
+    private final List<Airport> airports;
 
     public TripAdviseJson(Database database) {
         this.database = database;
+        this.airports = database.getAirports();
     }
 
     @Override
-    public List<TripAdvise> getAdvices() {
+    public List<TripAdvise> getAdvices(String country) {
         List<TripAdvise> tripAdvises = new ArrayList<>();
         List<Flight> flights = getTrimmedList();
         List<City> cities = database.getCities();
-        List<Airport> airports = database.getAirports();
-        Airport fromAirport = getFromAirport(airports);
+        Airport fromAirport = getFromAirport(country);
 
         Collections.shuffle(cities);
 
         cities.forEach(city -> {
             if(!city.getCityName().equals(fromAirport.getCityName())) {
-                Airport toAirport = getToAirport(airports, city);
+                Airport toAirport = getToAirport(city);
                 Flight flight = getCheapestFlight(flights, fromAirport, toAirport);
                 addAdvise(tripAdvises, city, flight);
             }
@@ -64,8 +64,7 @@ public class TripAdviseJson implements TripAdviseDao {
                 String.format("/airport/query?fromCode=%s&toCode=%s&tripDate=%s&person=1",
                         flight.getFromCode(),
                         flight.getToCode(),
-                        flight.getDeparture().toLocalDate().toString()
-                ),
+                        flight.getDeparture().toLocalDate().toString()),
                 String.valueOf(flight.getTouristPrice().intValue()),
                 city.getCityName(),
                 city.getCountryName()
@@ -81,15 +80,14 @@ public class TripAdviseJson implements TripAdviseDao {
                 .orElseThrow();
     }
 
-    private Airport getFromAirport(List<Airport> airports) {
-//        return airports.stream()
-//                .filter(airport -> airport.getCountryName().equals(fromcountry...))
-//                .findFirst()
-//                .orElse(airports.get(DEFAULT_QUANTITY));
-        return airports.get(DEFAULT_AIRPORT);
+    private Airport getFromAirport(String country) {
+        return airports.stream()
+                .filter(airport -> airport.getCountryName().equals(country))
+                .findFirst()
+                .orElse(airports.get(DEFAULT_AIRPORT));
     }
 
-    private Airport getToAirport(List<Airport> airports, City city) {
+    private Airport getToAirport(City city) {
         return airports.stream()
                 .filter(airport -> airport.getCityName().equals(city.getCityName()))
                 .findFirst()
