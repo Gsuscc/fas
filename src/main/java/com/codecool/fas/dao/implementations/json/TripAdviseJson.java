@@ -44,7 +44,7 @@ public class TripAdviseJson implements TripAdviseDao {
             if(!city.getCityName().equals(fromAirport.getCityName())) {
                 Airport toAirport = getToAirport(city);
                 Flight flight = getCheapestFlight(flights, fromAirport, toAirport);
-                addAdvise(tripAdvises, city, flight);
+                addAdvise(tripAdvises, city, flight, fromAirport, toAirport);
             }
         });
         return tripAdvises;
@@ -57,12 +57,12 @@ public class TripAdviseJson implements TripAdviseDao {
         ).collect(Collectors.toList());
     }
 
-    private void addAdvise(List<TripAdvise> tripAdvises, City city, Flight flight) {
+    private void addAdvise(List<TripAdvise> tripAdvises, City city, Flight flight, Airport fromAirport, Airport toAirport) {
         tripAdvises.add(
                 new TripAdvise(
                         city.getCityImage().toString(),
-                        flight.getFromCode(),
-                        flight.getToCode(),
+                        fromAirport,
+                        toAirport,
                         flight.getDeparture().getYear(),
                         flight.getDeparture().getMonthValue(),
                         flight.getDeparture().getDayOfMonth(),

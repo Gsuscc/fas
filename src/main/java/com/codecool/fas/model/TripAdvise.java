@@ -3,8 +3,8 @@ package com.codecool.fas.model;
 public class TripAdvise {
 
     private String pictureUrl;
-    private String fromCode;
-    private String toCode;
+    private Airport fromAirport;
+    private Airport toAirport;
     private int year;
     private int month;
     private int day;
@@ -12,10 +12,11 @@ public class TripAdvise {
     private String city;
     private String country;
 
-    public TripAdvise(String pictureUrl, String fromCode, String toCode, int year, int month, int day, String price, String city, String country) {
+
+    public TripAdvise(String pictureUrl, Airport fromAirport, Airport toAirport, int year, int month, int day, String price, String city, String country) {
         this.pictureUrl = pictureUrl;
-        this.fromCode = fromCode;
-        this.toCode = toCode;
+        this.fromAirport = fromAirport;
+        this.toAirport = toAirport;
         this.year = year;
         this.month = month;
         this.day = day;
@@ -32,20 +33,20 @@ public class TripAdvise {
         this.pictureUrl = pictureUrl;
     }
 
-    public String getFromCode() {
-        return fromCode;
+    public Airport getFromAirport() {
+        return fromAirport;
     }
 
-    public void setFromCode(String fromCode) {
-        this.fromCode = fromCode;
+    public void setFromAirport(Airport fromAirport) {
+        this.fromAirport = fromAirport;
     }
 
-    public String getToCode() {
-        return toCode;
+    public Airport getToAirport() {
+        return toAirport;
     }
 
-    public void setToCode(String toCode) {
-        this.toCode = toCode;
+    public void setToAirport(Airport toAirport) {
+        this.toAirport = toAirport;
     }
 
     public int getYear() {

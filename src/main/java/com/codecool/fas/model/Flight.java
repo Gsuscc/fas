@@ -132,4 +132,22 @@ public class Flight {
     public void setTravelTime(LocalTime travelTime) {
         this.travelTime = travelTime;
     }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "name='" + name + '\'' +
+                ", fromCode='" + fromCode + '\'' +
+                ", toCode='" + toCode + '\'' +
+                ", code=" + code +
+                ", airline=" + airline +
+                ", aircraft='" + aircraft + '\'' +
+                ", distance=" + distance +
+                ", departure=" + departure +
+                ", arrival=" + arrival +
+                ", touristPrice=" + touristPrice +
+                ", businessPrice=" + businessPrice +
+                ", travelTime=" + travelTime +
+                '}';
+    }
 }
