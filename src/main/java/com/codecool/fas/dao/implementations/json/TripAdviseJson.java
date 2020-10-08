@@ -61,10 +61,11 @@ public class TripAdviseJson implements TripAdviseDao {
         tripAdvises.add(
                 new TripAdvise(
                         city.getCityImage().toString(),
-                        String.format("/airport/query?fromCode=%s&toCode=%s&tripDate=%s&person=1",
-                                flight.getFromCode(),
-                                flight.getToCode(),
-                                flight.getDeparture().toLocalDate().toString()),
+                        flight.getFromCode(),
+                        flight.getToCode(),
+                        flight.getDeparture().getYear(),
+                        flight.getDeparture().getMonthValue(),
+                        flight.getDeparture().getDayOfMonth(),
                         String.valueOf(flight.getTouristPrice().intValue()),
                         city.getCityName(),
                         city.getCountryName()

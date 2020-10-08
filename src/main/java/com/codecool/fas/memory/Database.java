@@ -46,6 +46,14 @@ public class Database {
         this.flights = gson.fromJson(jsonFlights, flightListType);
         this.cities = gson.fromJson(jsonCities, citiesListType);
 
+        for (Flight flight: this.flights) {
+            flight.setTravelTime(
+                    flight.getArrival().toLocalTime()
+                            .minusHours(flight.getDeparture().getHour())
+                            .minusMinutes(flight.getDeparture().getMinute())
+                            .minusSeconds(flight.getDeparture().getSecond())
+            );
+        }
     }
 
     public List<Airline> getAirlines() {

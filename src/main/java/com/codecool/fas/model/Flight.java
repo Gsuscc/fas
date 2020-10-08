@@ -1,6 +1,7 @@
 package com.codecool.fas.model;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 public class Flight {
@@ -16,28 +17,25 @@ public class Flight {
     private LocalDateTime arrival;
     private Double touristPrice;
     private Double businessPrice;
+    private LocalTime travelTime;
 
-    public Flight() {
+    public Flight(String name, String fromCode, String toCode, UUID code, Airline airline, String aircraft, Double distance, LocalDateTime departure, LocalDateTime arrival, Double touristPrice, Double businessPrice) {
+        this.name = name;
+        this.fromCode = fromCode;
+        this.toCode = toCode;
+        this.code = code;
+        this.airline = airline;
+        this.aircraft = aircraft;
+        this.distance = distance;
+        this.departure = departure;
+        this.arrival = arrival;
+        this.touristPrice = touristPrice;
+        this.businessPrice = businessPrice;
+        this.travelTime = arrival.toLocalTime()
+                .minusHours(departure.getHour())
+                .minusMinutes(departure.getMinute())
+                .minusSeconds(departure.getSecond());
     }
-
-//    public Flight(Airport flyFrom, Airport landingTo, Airline airline, LocalDateTime departure) {
-//        this.name = flyFrom.getLabel() + " - " + landingTo.getLabel();
-//        this.fromCode = flyFrom.getCode();
-//        this.toCode = landingTo.getCode();
-//        this.code = UUID.randomUUID();
-//        this.airline = airline;
-//        double distance = DistanceCalculator.calculate(
-//                flyFrom.getLatitude(),
-//                landingTo.getLatitude(),
-//                flyFrom.getLongitude(),
-//                landingTo.getLongitude()
-//        );
-//        this.distance = distance;
-//        this.departure = departure;
-//        this.arrival = departure.plusHours((long) Math.floor(Math.random()*3) + 1);
-//        this.touristPrice = Math.random() * (distance / 2) + 20;
-//        this.businessPrice = this.touristPrice * (Math.random() / 5 + 2.1);
-//    }
 
     public String getName() {
         return name;
@@ -125,5 +123,13 @@ public class Flight {
 
     public void setDistance(Double distance) {
         this.distance = distance;
+    }
+
+    public LocalTime getTravelTime() {
+        return travelTime;
+    }
+
+    public void setTravelTime(LocalTime travelTime) {
+        this.travelTime = travelTime;
     }
 }
