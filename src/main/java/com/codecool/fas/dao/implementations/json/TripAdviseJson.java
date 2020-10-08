@@ -53,22 +53,22 @@ public class TripAdviseJson implements TripAdviseDao {
     private List<Flight> getTrimmedList() {
         return database.getFlights().stream().filter(advisorFlights ->
                 advisorFlights.getDeparture().isAfter(LocalDateTime.now().plusDays(AFTER_DAYS)) &&
-                advisorFlights.getDeparture().isBefore(LocalDateTime.now().plusDays(BEFORE_DAYS))
+                        advisorFlights.getDeparture().isBefore(LocalDateTime.now().plusDays(BEFORE_DAYS))
         ).collect(Collectors.toList());
     }
 
     private void addAdvise(List<TripAdvise> tripAdvises, City city, Flight flight) {
         tripAdvises.add(
-            new TripAdvise(
-                city.getCityImage().toString(),
-                String.format("/airport/query?fromCode=%s&toCode=%s&tripDate=%s&person=1",
-                        flight.getFromCode(),
-                        flight.getToCode(),
-                        flight.getDeparture().toLocalDate().toString()),
-                String.valueOf(flight.getTouristPrice().intValue()),
-                city.getCityName(),
-                city.getCountryName()
-            )
+                new TripAdvise(
+                        city.getCityImage().toString(),
+                        String.format("/airport/query?fromCode=%s&toCode=%s&tripDate=%s&person=1",
+                                flight.getFromCode(),
+                                flight.getToCode(),
+                                flight.getDeparture().toLocalDate().toString()),
+                        String.valueOf(flight.getTouristPrice().intValue()),
+                        city.getCityName(),
+                        city.getCountryName()
+                )
         );
     }
 

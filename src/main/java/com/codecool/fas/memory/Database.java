@@ -29,7 +29,7 @@ public class Database {
 
         String jsonAirlines = FileHandler.read("src/main/resources/data/airlines.json");
         String jsonAirports = FileHandler.read("src/main/resources/data/airports.json");
-        String jsonFlights = FileHandler.read("src/main/resources/data/flights_dummy.json");
+        String jsonFlights = FileHandler.read("src/main/resources/data/flights.json");
         String jsonCities = FileHandler.read("src/main/resources/data/cities.json");
 
         Type airlinesListType = new TypeToken<Collection<Airline>>() {
