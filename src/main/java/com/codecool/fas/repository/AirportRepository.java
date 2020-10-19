@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface AirportRepository extends JpaRepository<Airport, Long> {
 
-    List<Airport> findByTitleIsContainingIgnoreCase(String subString);
+//    List<Airport> findByTitleIsContainingIgnoreCase(String subString);
 
 }
