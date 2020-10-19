@@ -23,7 +23,6 @@ public class Flight {
     @Transient
     private String name;
     @ManyToOne
-    @Column(nullable = false)
     private Airline airline;
     @ManyToOne
     private Airport fromAirport;

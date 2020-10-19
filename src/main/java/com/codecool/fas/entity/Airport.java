@@ -20,7 +20,6 @@ public class Airport {
     @Column(nullable = false, unique = true)
     private String code;
     @ManyToOne
-    @Column(nullable = false)
     private City city;
     @Column(nullable = false)
     private String airportName;
