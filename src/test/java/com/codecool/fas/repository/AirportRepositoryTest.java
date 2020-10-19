@@ -1,6 +1,7 @@
 package com.codecool.fas.repository;
 
 import com.codecool.fas.entity.Airport;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith({SpringExtension.class})
 @DataJpaTest
-//@ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 class AirportRepositoryTest {
     private final AirportRepository airportRepository;
@@ -39,5 +39,35 @@ class AirportRepositoryTest {
         airportRepository.save(airport);
         List<Airport> airports = airportRepository.findAll();
         assertThat(airports).hasSize(1);
+    }
+
+    @Test
+    public void findByLabelIsContainingIgnoreCase_ReturnsAirports() {
+        Airport airport1 = Airport.builder()
+                .label("Ferihegy")
+                .code("BUD")
+                .airportName("Ferihegy")
+                .latitude(52.502777777778)
+                .longitude(13.508611111111)
+                .build();
+        Airport airport2 = Airport.builder()
+                .label("Janihegy")
+                .code("JUD")
+                .airportName("x")
+                .latitude(52.502777777778)
+                .longitude(13.508611111111)
+                .build();
+        Airport airport3 = Airport.builder()
+                .label("Heatrow")
+                .code("LON")
+                .airportName("y")
+                .latitude(52.502777777778)
+                .longitude(13.508611111111)
+                .build();
+        airportRepository.saveAll(Lists.newArrayList(airport1, airport2, airport3));
+        List<Airport> airports = airportRepository.findByLabelIsContainingIgnoreCase("heg");
+        assertThat(airports)
+                .hasSize(2)
+                .containsExactlyInAnyOrder(airport1, airport2);
     }
 }
