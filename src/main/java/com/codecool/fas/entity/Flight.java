@@ -29,6 +29,7 @@ public class Flight {
     private Airport fromAirport;
     @ManyToOne
     private Airport toAirport;
+    @Transient
     private String aircraft;
     @Column(nullable = false)
     private Double distance;
