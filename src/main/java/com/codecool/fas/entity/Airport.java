@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -30,5 +31,9 @@ public class Airport {
     private Double latitude;
     @Column(nullable = false)
     private Double longitude;
+    @OneToMany(mappedBy = "fromAirport")
+    private Set<Flight> fromAirports;
+    @OneToMany(mappedBy = "toAirport")
+    private Set<Flight> toAirports;
 
 }

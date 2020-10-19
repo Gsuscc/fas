@@ -1,15 +1,11 @@
 package com.codecool.fas.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.net.URL;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -26,4 +22,8 @@ public class Airline {
     private String code;
     @Column(nullable = false)
     private URL logo;
+    @OneToMany(mappedBy = "airline")
+    @EqualsAndHashCode.Exclude
+    @Singular
+    private Set<Flight> flights;
 }
