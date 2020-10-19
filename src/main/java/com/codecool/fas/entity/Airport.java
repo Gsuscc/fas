@@ -3,6 +3,7 @@ package com.codecool.fas.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data
@@ -17,7 +18,7 @@ public class Airport {
     private Long id;
     @Column(nullable = false)
     private String label;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 3)
     private String code;
     @ManyToOne
     private City city;

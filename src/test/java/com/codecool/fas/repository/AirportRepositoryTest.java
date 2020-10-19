@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith({SpringExtension.class})
 @DataJpaTest
+@ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 class AirportRepositoryTest {
     private final AirportRepository airportRepository;
@@ -26,7 +28,6 @@ class AirportRepositoryTest {
     public AirportRepositoryTest(AirportRepository airportRepository) {
         this.airportRepository = airportRepository;
     }
-
     @Test
     public void isAirportAdded() {
         Airport airport = Airport.builder()
@@ -69,5 +70,21 @@ class AirportRepositoryTest {
         assertThat(airports)
                 .hasSize(2)
                 .containsExactlyInAnyOrder(airport1, airport2);
+    }
+
+    @Test
+    public void codeSizeDifferentFromThreeThrowException() {
+        Airport airport1 = Airport.builder()
+                .label("Ferihegy")
+                .code("BUDAPEST")
+                .airportName("Ferihegy")
+                .latitude(52.502777777778)
+                .longitude(13.508611111111)
+                .build();
+        assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> {
+                    airportRepository.save(
+                            airport1);
+                });
     }
 }
