@@ -26,6 +26,6 @@ public class City {
     @Singular()
     @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
-    private Set<Airport> airport;
+    private Set<Airport> airports;
 
 }
