@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,19 +19,19 @@ import java.util.List;
 @Scope("singleton")
 public class Database {
 
-    private final List<Airline> airlines;
-    private final List<Airport> airports;
-    private final List<Flight> flights;
-    private final List<City> cities;
+    private final List<Airline> airlines = new ArrayList<>();
+    private final List<Airport> airports = new ArrayList<>();
+    private final List<Flight> flights = new ArrayList<>();
+    private final List<City> cities = new ArrayList<>();
 
     public Database() {
 
         Gson gson = new Gson();
 
-        String jsonAirlines = FileHandler.read("src/main/resources/data/airlines.json");
-        String jsonAirports = FileHandler.read("src/main/resources/data/airports.json");
-        String jsonFlights = FileHandler.read("src/main/resources/data/flights.json");
-        String jsonCities = FileHandler.read("src/main/resources/data/cities.json");
+//        String jsonAirlines = FileHandler.read("src/main/resources/data/airlines.json");
+//        String jsonAirports = FileHandler.read("src/main/resources/data/airports.json");
+//        String jsonFlights = FileHandler.read("src/main/resources/data/flights.json");
+//        String jsonCities = FileHandler.read("src/main/resources/data/cities.json");
 
         Type airlinesListType = new TypeToken<Collection<Airline>>() {
         }.getType();
@@ -41,10 +42,10 @@ public class Database {
         Type citiesListType = new TypeToken<Collection<City>>() {
         }.getType();
 
-        this.airlines = gson.fromJson(jsonAirlines, airlinesListType);
-        this.airports = gson.fromJson(jsonAirports, airportsListType);
-        this.flights = gson.fromJson(jsonFlights, flightListType);
-        this.cities = gson.fromJson(jsonCities, citiesListType);
+//        this.airlines = gson.fromJson(jsonAirlines, airlinesListType);
+//        this.airports = gson.fromJson(jsonAirports, airportsListType);
+//        this.flights = gson.fromJson(jsonFlights, flightListType);
+//        this.cities = gson.fromJson(jsonCities, citiesListType);
 
         for (Flight flight: this.flights) {
             flight.setTravelTime(
