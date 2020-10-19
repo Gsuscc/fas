@@ -23,9 +23,9 @@ public class City {
     private String countryName;
     @Column(nullable = false,unique = true)
     private String countryCode;
+    @Singular()
     @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
-    @Singular()
     private Set<Airport> airport;
 
 }
