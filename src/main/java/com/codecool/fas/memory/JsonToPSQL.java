@@ -42,7 +42,7 @@ public class JsonToPSQL {
         this.flightRepository = flightRepository;
 
         // Uncomment this to fill DB with values
-        // fillDatabase();
+//         fillDatabase();
     }
 
     private void fillDatabase() {

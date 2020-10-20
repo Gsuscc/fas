@@ -2,7 +2,7 @@ package com.codecool.fas.controller;
 
 
 import com.codecool.fas.dao.interfaces.AirportDao;
-import com.codecool.fas.model.Airport;
+import com.codecool.fas.entity.Airport;
 import com.codecool.fas.model.http.Response;
 import com.codecool.fas.model.http.ResponseData;
 import com.codecool.fas.model.http.ResponseError;

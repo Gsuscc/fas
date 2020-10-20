@@ -1,17 +1,16 @@
 package com.codecool.fas.entity;
 
 import com.codecool.fas.entity.Airline;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -20,14 +19,21 @@ public class Flight {
     @Id
     @GeneratedValue
     private Long id;
-    @Transient
+
     private String name;
+
+    @JsonManagedReference
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private Airline airline;
+
+    @JsonManagedReference
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private Airport fromAirport;
+
+    @JsonManagedReference
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private Airport toAirport;
+
     @Transient
     private String aircraft;
     @Column(nullable = false)
