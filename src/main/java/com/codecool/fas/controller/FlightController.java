@@ -1,31 +1,29 @@
 package com.codecool.fas.controller;
 
 import com.codecool.fas.dao.interfaces.FlightDao;
-import com.codecool.fas.model.Flight;
 import com.codecool.fas.model.FlightQuery;
 import com.codecool.fas.model.http.Response;
 import com.codecool.fas.model.http.ResponseData;
 import com.codecool.fas.model.http.ResponseError;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/flight")
 public class FlightController {
 
-    FlightDao flightJson;
+    FlightDao flightDao;
 
     @Autowired
-    public FlightController(FlightDao flightJson) {
-        this.flightJson = flightJson;
+    public FlightController(@Qualifier("FlightJpa") FlightDao flightDao) {
+        this.flightDao = flightDao;
     }
 
 
@@ -46,7 +44,7 @@ public class FlightController {
         Response<FlightQuery> response;
         List<FlightQuery> flights;
         try {
-            flights = flightJson.getFlights(fromCode, toCode, getLocalDate(tripDate), Integer.valueOf(person));
+            flights = flightDao.getFlights(fromCode, toCode, getLocalDate(tripDate), Integer.valueOf(person));
             response = new ResponseData<>(flights);
         } catch (Exception e) {
             response = new ResponseError<>("error!!!");
@@ -81,7 +79,7 @@ public class FlightController {
         Response<FlightQuery> response;
         List<FlightQuery> flights;
         try {
-            flights = flightJson.getFlights(fromCode, toCode, getLocalDate(tripDate), Integer.valueOf(person), getLocalTime(timeFrom), getLocalTime(timeTo), Arrays.asList(airlineCode), Double.parseDouble(priceFrom), Double.parseDouble(priceTo));
+            flights = flightDao.getFlights(fromCode, toCode, getLocalDate(tripDate), Integer.valueOf(person), getLocalTime(timeFrom), getLocalTime(timeTo), Arrays.asList(airlineCode), Double.parseDouble(priceFrom), Double.parseDouble(priceTo));
             response = new ResponseData<>(flights);
         } catch (Exception e) {
             response = new ResponseError<>("error!!!");
@@ -109,7 +107,7 @@ public class FlightController {
         List<FlightQuery> flights;
         try {
             LocalDate trip = getLocalDate(tripDate);
-            flights = flightJson.getFlights(fromCode, toCode, trip, getLocalDate(returnDate), Integer.valueOf(person));
+            flights = flightDao.getFlights(fromCode, toCode, trip, getLocalDate(returnDate), Integer.valueOf(person));
             response = new ResponseData<>(flights);
         } catch (Exception e) {
             response = new ResponseError<>("error!!!");
@@ -146,7 +144,7 @@ public class FlightController {
         Response<FlightQuery> response;
         List<FlightQuery> flights;
         try {
-            flights = flightJson.getFlights(fromCode, toCode, getLocalDate(tripDate), getLocalDate(returnDate), Integer.valueOf(person), getLocalTime(timeFrom), getLocalTime(timeTo), Arrays.asList(airlineCode), Double.parseDouble(priceFrom), Double.parseDouble(priceTo));
+            flights = flightDao.getFlights(fromCode, toCode, getLocalDate(tripDate), getLocalDate(returnDate), Integer.valueOf(person), getLocalTime(timeFrom), getLocalTime(timeTo), Arrays.asList(airlineCode), Double.parseDouble(priceFrom), Double.parseDouble(priceTo));
             response = new ResponseData<>(flights);
         } catch (Exception e) {
             response = new ResponseError<>("error!!!");

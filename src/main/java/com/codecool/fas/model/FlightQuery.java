@@ -1,4 +1,5 @@
 package com.codecool.fas.model;
+import com.codecool.fas.entity.Flight;
 
 public class FlightQuery {
 

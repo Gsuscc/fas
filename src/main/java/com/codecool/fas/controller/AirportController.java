@@ -21,8 +21,7 @@ public class AirportController {
     AirportDao airportDao;
 
     @Autowired
-    public AirportController(    @Qualifier("AirportJpa")
-                                             AirportDao airportDao) {
+    public AirportController(@Qualifier("AirportJpa") AirportDao airportDao) {
         this.airportDao = airportDao;
     }
 
@@ -36,6 +35,8 @@ public class AirportController {
             response = new ResponseError<>("No Such Element: " + substring);
         }
         return response;
-    };
+    }
+
+    ;
 
 }
