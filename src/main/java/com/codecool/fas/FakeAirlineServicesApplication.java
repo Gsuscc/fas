@@ -1,5 +1,6 @@
 package com.codecool.fas;
 
+import com.codecool.fas.memory.JsonToPSQL;
 import com.codecool.fas.repository.AirlineRepository;
 import com.codecool.fas.repository.AirportRepository;
 import com.codecool.fas.repository.CityRepository;

@@ -68,6 +68,41 @@
     "countryName": "Greece",
     "cityName": "Athens",
     "cityImage": "https://cluster.turystyka.com.pl/~premiohu2/CRM/showfile.php?image=201911071326040.pic_05.jpg"
+  },
+  {
+    "countryName": "Mexico",
+    "cityName": "Mexico City",
+    "cityImage": null
+  },
+  {
+    "countryName": "Japan",
+    "cityName": "Tokyo",
+    "cityImage": null
+  },
+  {
+    "countryName": "China",
+    "cityName": "Beijing",
+    "cityImage": null
+  },
+    {
+      "countryName": "Singapore",
+      "cityName": "Singapore",
+    "cityImage": null
+  },
+    {
+      "countryName": "United States",
+      "cityName": "Denver",
+    "cityImage": null
+  },
+    {
+      "countryName": "South Africa",
+      "cityName": "Cape Town",
+    "cityImage": null
+  },
+    {
+      "countryName": "United States",
+      "cityName": "Atlanta",
+    "cityImage": null
   }
 
 ]
