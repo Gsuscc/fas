@@ -4,7 +4,6 @@ import com.codecool.fas.entity.Airline;
 import com.codecool.fas.entity.Airport;
 import com.codecool.fas.entity.City;
 import com.codecool.fas.entity.Flight;
-import com.codecool.fas.repository.AirportRepository;
 import com.codecool.fas.repository.FlightRepository;
 import com.codecool.fas.util.DistanceCalculator;
 import com.codecool.fas.util.FileHandler;
@@ -28,9 +27,9 @@ import java.util.List;
 public class JsonToPSQL {
 
     public static final int MAX_DISTANCE_CAPACITY = 5300;
-    private final List<com.codecool.fas.model.Airline> airlines;
-    private final List<com.codecool.fas.model.Airport> airports;
-    private final List<com.codecool.fas.model.City> cities;
+    private List<com.codecool.fas.model.Airline> airlines;
+    private List<com.codecool.fas.model.Airport> airports;
+    private List<com.codecool.fas.model.City> cities;
     private final List<Airline> airlineEntities = new ArrayList<>();
     private final List<Airport> airportEntities = new ArrayList<>();
     private final List<City> cityEntities = new ArrayList<>();
@@ -41,6 +40,17 @@ public class JsonToPSQL {
     @Autowired
     public JsonToPSQL(FlightRepository flightRepository) {
         this.flightRepository = flightRepository;
+
+        // Uncomment this to fill DB with values
+        // fillDatabase();
+    }
+
+    private void fillDatabase() {
+        readJsonFiles();
+        writeToDB();
+    }
+
+    private void readJsonFiles() {
         Gson gson = new Gson();
 
         String jsonAirlines = FileHandler.read("src/main/resources/data/airlines.json");
@@ -57,8 +67,6 @@ public class JsonToPSQL {
         this.airlines = gson.fromJson(jsonAirlines, airlinesListType);
         this.airports = gson.fromJson(jsonAirports, airportsListType);
         this.cities = gson.fromJson(jsonCities, citiesListType);
-
-        //writeToDB();
     }
 
     public void writeToDB() {
@@ -98,13 +106,6 @@ public class JsonToPSQL {
 
         }
 
-        for (com.codecool.fas.model.Airline airline: airlines) {
-            Airline airlineEntity = Airline.builder()
-                    .code(airline.getCode())
-                    .logo(airline.getLogo())
-                    .name(airline.getName())
-                    .build();
-        }
         int DAYS = 100;
         LocalDateTime today = LocalDate.now().atStartOfDay();
         for (int i = 0; i < DAYS; i++) {
