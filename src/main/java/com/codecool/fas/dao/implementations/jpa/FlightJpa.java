@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +40,21 @@ public class FlightJpa implements FlightDao {
 
     @Override
     public List<FlightQuery> getFlights(String departureCode, String arriveCode, LocalDate tripDate, LocalDate tripBackDate, Integer person) {
-        return null;
+        List<FlightQuery> result = new ArrayList<>();
+        List<Flight> toFlights = flightRepository.findFlightsOneWay(departureCode, arriveCode, tripDate);
+        List<Flight> backFlights = flightRepository.findFlightsOneWay(arriveCode, departureCode, tripBackDate);
+        toFlights.forEach(flight -> backFlights.forEach(backFlight -> {
+            if (isValidDateTime(flight.getArrival(), backFlight.getDeparture()))
+                result.add(new FlightQuery(flight, backFlight, person));
+        }));
+        return result;
     }
 
     @Override
     public List<FlightQuery> getFlights(String departureCode, String arriveCode, LocalDate tripDate, LocalDate tripBackDate, Integer person, LocalTime timeFrom, LocalTime timeTo, List<String> airlineCode, Double priceFrom, Double priceTo) {
         return null;
+    }
+    private boolean isValidDateTime(LocalDateTime arriveTo, LocalDateTime departureBack) {
+        return departureBack.isAfter(arriveTo.plusHours(1));
     }
 }
