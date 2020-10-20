@@ -86,7 +86,16 @@ public class JsonToPSQL {
             airportEntity.setCity(city);
 
         }
-        airportRepository.saveAll(airportEntities);
+
+        for (com.codecool.fas.model.Airline airline: airlines) {
+            Airline airlineEntity = Airline.builder()
+                    .code(airline.getCode())
+                    .logo(airline.getLogo())
+                    .name(airline.getName())
+                    .build();
+        }
+
+
 
     }
 
