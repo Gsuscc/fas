@@ -1,5 +1,6 @@
 package com.codecool.fas.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,7 +8,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -25,5 +27,6 @@ public class Airline {
     @OneToMany(mappedBy = "airline")
     @EqualsAndHashCode.Exclude
     @Singular
+    @JsonBackReference
     private Set<Flight> flights;
 }

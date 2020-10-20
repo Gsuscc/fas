@@ -7,6 +7,7 @@ import com.codecool.fas.model.http.Response;
 import com.codecool.fas.model.http.ResponseData;
 import com.codecool.fas.model.http.ResponseError;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,19 +16,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/advisor")
 public class TripAdviseController {
 
-    private final TripAdviseDao tripAdviseJson;
+    private final TripAdviseDao tripAdviseDao;
 
 
     @Autowired
-    public TripAdviseController(TripAdviseDao tripAdviseJson) {
-        this.tripAdviseJson = tripAdviseJson;
+    public TripAdviseController(@Qualifier("tripAdviseJpa") TripAdviseDao tripAdviseDao) {
+        this.tripAdviseDao = tripAdviseDao;
     }
 
     @GetMapping
     public Response<TripAdvise> getAdvises(@RequestParam String country) {
         Response<TripAdvise> response;
         try {
-            response = new ResponseData<>(tripAdviseJson.getAdvices(country)
+            response = new ResponseData<>(tripAdviseDao.getAdvices(country)
             );
         } catch (Exception e) {
             response = new ResponseError<>(e.getMessage());
