@@ -1,4 +1,6 @@
 package com.codecool.fas.model;
+import com.codecool.fas.entity.Airport;
+
 
 public class TripAdvise {
 
