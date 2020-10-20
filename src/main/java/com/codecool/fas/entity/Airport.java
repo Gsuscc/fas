@@ -19,7 +19,7 @@ public class Airport {
     private String label;
     @Column(nullable = false, unique = true)
     private String code;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     private City city;
     @Column(nullable = false)
     private String airportName;
@@ -35,5 +35,7 @@ public class Airport {
     @OneToMany(mappedBy = "toAirport", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
     private Set<Flight> toAirports;
+    @Column(nullable = false)
+    private String countryCode;
 
 }

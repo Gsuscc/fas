@@ -17,15 +17,13 @@ public class City {
     private Long id;
     @Column(nullable = false)
     private String cityName;
-    @Column(nullable = false)
     private URL cityImage;
     @Column(nullable = false)
     private String countryName;
-    @Column(nullable = false,unique = true)
-    private String countryCode;
     @Singular()
     @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
     private Set<Airport> airports;
+
 
 }
