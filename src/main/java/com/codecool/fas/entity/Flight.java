@@ -22,11 +22,11 @@ public class Flight {
     private Long id;
     @Transient
     private String name;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     private Airline airline;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     private Airport fromAirport;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     private Airport toAirport;
     @Transient
     private String aircraft;
