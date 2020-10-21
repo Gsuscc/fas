@@ -39,17 +39,19 @@ class AirportRepositoryTest {
 
     @Test
     public void isAirportAdded() {
-//        Airport airport = Airport.builder()
-//                .label("Ferihegy")
-//                .code("BUD")
-//                .airportName("Ferihegy")
-//                .latitude(52.502777777778)
-//                .longitude(13.508611111111)
-//                .countryCode("HU")
-//                .build();
-//        airportRepository.save(airport);
+        Airport airport = Airport.builder()
+                .label("Ferihegy")
+                .code("BUD")
+                .airportName("Ferihegy")
+                .latitude(52.502777777778)
+                .longitude(13.508611111111)
+                .countryCode("HU")
+                .build();
+        airportRepository.save(airport);
         List<Airport> airports = airportRepository.findAll();
-        assertThat(airports).hasSize(0);
+        assertThat(airports)
+                .hasSize(1)
+                .containsExactly(airport);
     }
 
     @Test
@@ -71,7 +73,7 @@ class AirportRepositoryTest {
                 .countryCode("JA")
                 .build();
         Airport airport3 = Airport.builder()
-                .label("Heatrow")
+                .label("BUD")
                 .code("LON")
                 .airportName("y")
                 .latitude(52.502777777778)
@@ -86,18 +88,21 @@ class AirportRepositoryTest {
     }
 
     @Test
-    public void codeSizeDifferentFromThreeThrowException() {
+    public void saveAirportWithSameCodeThrowException() {
         Airport airport1 = Airport.builder()
-                .label("Ferihegy")
-                .code("BUDAPEST")
-                .airportName("Ferihegy")
-                .latitude(52.502777777778)
-                .longitude(13.508611111111)
+                .label("Ferihegy").code("BUD").countryCode("HU")
+                .airportName("Ferihegy International")
+                .latitude(52.502777777778).longitude(13.508611111111)
+                .build();
+        Airport airport2 = Airport.builder()
+                .label("Janihegy").code("BUD").countryCode("HU")
+                .airportName("Janihegy International")
+                .latitude(52.502777777778).longitude(13.508611111111)
                 .build();
         assertThatExceptionOfType(DataIntegrityViolationException.class)
                 .isThrownBy(() -> {
-                    airportRepository.save(
-                            airport1);
+                    airportRepository.saveAndFlush(airport1);
+                    airportRepository.saveAndFlush(airport2);
                 });
     }
 }
