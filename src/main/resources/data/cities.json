@@ -2,72 +2,72 @@
   {
     "countryName": "Germany",
     "cityName": "Berlin",
-    "cityImage": "https://m.blog.hu/te/teesavilag/image/.external/.thumbs/398fd01815a26d13769d0367cd3846d9_d49afe6e3b4eb7cadfe308837303ec67.jpg"
+    "cityImage": "http://localhost:8080/image/berlin.jpg"
   },
   {
     "countryName": "Hungary",
     "cityName": "Budapest",
-    "cityImage": "https://ripost.hu/wp-content/uploads/2019/09/BPLanchid.jpg"
+    "cityImage": "http://localhost:8080/image/budapest.jpg"
   },
   {
     "countryName": "Sweden",
     "cityName": "Stockholm",
-    "cityImage": "https://vjm.hu/wp-content/uploads/2017/01/shutterstock_133005938-1170x780.jpg"
+    "cityImage": "http://localhost:8080/image/stockholm.jpg"
   },
   {
     "countryName": "United Kingdom",
     "cityName": "London",
-    "cityImage": "https://old.sk.ru/cfs-file.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-00-60-11/tower_2D00_bridge_2D00_980961_5F00_1920.jpg"
+    "cityImage": "http://localhost:8080/image/london.jpg"
   },
   {
     "countryName": "France",
     "cityName": "Paris",
-    "cityImage": "https://images.adsttc.com/media/images/5d44/14fa/284d/d1fd/3a00/003d/newsletter/eiffel-tower-in-paris-151-medium.jpg"
+    "cityImage": "http://localhost:8080/image/paris.jpg"
   },
   {
     "countryName": "Italy",
     "cityName": "Rome",
-    "cityImage": "https://www.maiutazas.hu/uploads/mu_campaign/1/2/8/9/_/128911_0f8a3533645166521e52f9f43c6384bc2c1675d1_original.jpg"
+    "cityImage": "http://localhost:8080/image/rome.jpg"
   },
   {
     "countryName": "Spain",
     "cityName": "Madrid",
-    "cityImage": "https://www.focitour.hu/wp-content/uploads/sites/7/2016/08/madrid-.jpg"
+    "cityImage": "http://localhost:8080/image/madrid.jpg"
   },
   {
     "countryName": "Spain",
     "cityName": "Barcelona",
-    "cityImage": "https://res.cloudinary.com/sagacity/image/upload/c_crop,h_770,w_1000,x_0,y_0/c_limit,f_auto,fl_lossy,q_80,w_1080/shutterstock_174454670_gicbgy.jpg"
+    "cityImage": "http://localhost:8080/image/barcelona.jpg"
   },
   {
     "countryName": "Russia",
     "cityName": "Moscow",
-    "cityImage": "https://www.planete-energies.com/sites/default/files/styles/media_full_width_940px/public/thumbnails/image/moscow.jpg"
+    "cityImage": "http://localhost:8080/image/moscow.jpg"
   },
   {
     "countryName": "Turkey",
     "cityName": "Istanbul",
-    "cityImage": "https://www.nomadepicureans.com/wp-content/uploads/2019/09/One-Day-in-Istanbul-Feature-Image.jpg"
+    "cityImage": "http://localhost:8080/image/istanbul.jpg"
   },
   {
     "countryName": "Australia",
     "cityName": "Sydney",
-    "cityImage": "https://de-int-prod.sydney.com/sites/international/files/styles/full_height_image/public/2018-08/Aerial%20of%20Sydney%20harbour%20Opera%20House%2C%201905x1200.jpg?itok=QSMkCGkh"
+    "cityImage": "http://localhost:8080/image/sydney.jpg"
   },
   {
     "countryName": "United States",
     "cityName": "Miami",
-    "cityImage": "https://www.newcountry1031.com/wp-content/uploads/2020/03/GettyImages-1137673992.jpg"
+    "cityImage": "http://localhost:8080/image/miami.jpg"
   },
   {
     "countryName": "Finland",
     "cityName": "Helsinki",
-    "cityImage": "https://www.sustaineurope.com/images/dji_0085gg.jpg"
+    "cityImage": "http://localhost:8080/image/helsinki.jpg"
   },
   {
     "countryName": "Greece",
     "cityName": "Athens",
-    "cityImage": "https://cluster.turystyka.com.pl/~premiohu2/CRM/showfile.php?image=201911071326040.pic_05.jpg"
+    "cityImage": "http://localhost:8080/image/athens.jpg"
   },
   {
     "countryName": "Mexico",
