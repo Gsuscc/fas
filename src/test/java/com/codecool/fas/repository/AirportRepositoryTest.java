@@ -2,6 +2,7 @@ package com.codecool.fas.repository;
 
 import com.codecool.fas.entity.Airport;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -20,26 +22,34 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith({SpringExtension.class})
 @DataJpaTest
 @ActiveProfiles("test")
+@TestPropertySource(locations = {"classpath:application-test.properties"})
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 class AirportRepositoryTest {
     private final AirportRepository airportRepository;
+
+    @BeforeEach
+    public void setup() {
+        airportRepository.deleteAll();
+    }
 
     @Autowired
     public AirportRepositoryTest(AirportRepository airportRepository) {
         this.airportRepository = airportRepository;
     }
+
     @Test
     public void isAirportAdded() {
-        Airport airport = Airport.builder()
-                .label("Ferihegy")
-                .code("BUD")
-                .airportName("Ferihegy")
-                .latitude(52.502777777778)
-                .longitude(13.508611111111)
-                .build();
-        airportRepository.save(airport);
+//        Airport airport = Airport.builder()
+//                .label("Ferihegy")
+//                .code("BUD")
+//                .airportName("Ferihegy")
+//                .latitude(52.502777777778)
+//                .longitude(13.508611111111)
+//                .countryCode("HU")
+//                .build();
+//        airportRepository.save(airport);
         List<Airport> airports = airportRepository.findAll();
-        assertThat(airports).hasSize(1);
+        assertThat(airports).hasSize(0);
     }
 
     @Test
@@ -50,6 +60,7 @@ class AirportRepositoryTest {
                 .airportName("Ferihegy")
                 .latitude(52.502777777778)
                 .longitude(13.508611111111)
+                .countryCode("HU")
                 .build();
         Airport airport2 = Airport.builder()
                 .label("Janihegy")
@@ -57,6 +68,7 @@ class AirportRepositoryTest {
                 .airportName("x")
                 .latitude(52.502777777778)
                 .longitude(13.508611111111)
+                .countryCode("JA")
                 .build();
         Airport airport3 = Airport.builder()
                 .label("Heatrow")
@@ -64,6 +76,7 @@ class AirportRepositoryTest {
                 .airportName("y")
                 .latitude(52.502777777778)
                 .longitude(13.508611111111)
+                .countryCode("UK")
                 .build();
         airportRepository.saveAll(Lists.newArrayList(airport1, airport2, airport3));
         List<Airport> airports = airportRepository.findByLabelIsContainingIgnoreCase("heg");
