@@ -23,9 +23,11 @@ public class UserInfo {
     @GeneratedValue
     Long id;
 
+    @Column(unique = true)
     @NotEmpty
     private String username;
 
+    @Column(unique = true)
     @NotEmpty
     private String email;
 
