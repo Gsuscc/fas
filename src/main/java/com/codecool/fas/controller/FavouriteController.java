@@ -26,7 +26,7 @@ public class FavouriteController {
 
 
     @GetMapping("/book")
-    private ResponseEntity bookFlight(@RequestParam Long id ,@RequestParam Long returnId){
+    private ResponseEntity bookFlight(@RequestParam Long id ,@RequestParam(required = false) Long returnId){
         String userName = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         BookedFlight bookedFlight = BookedFlight.builder()
                 .toFlight(flightRepository.getOne(id))
