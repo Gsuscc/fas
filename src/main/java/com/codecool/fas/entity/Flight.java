@@ -1,12 +1,14 @@
 package com.codecool.fas.entity;
 
 import com.codecool.fas.entity.Airline;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 
 @Getter
@@ -48,4 +50,12 @@ public class Flight {
     private Double businessPrice;
     @Column(nullable = false)
     private LocalTime travelTime;
+
+    @OneToMany(mappedBy = "toFlight", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonBackReference
+    private List<BookedFlight> bookedToFlightList;
+
+    @OneToMany(mappedBy = "returnFlight", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonBackReference
+    private List<BookedFlight> bookedReturnFlightList;
 }
