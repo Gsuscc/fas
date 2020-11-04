@@ -6,6 +6,7 @@ import com.codecool.fas.entity.UserInfo;
 import com.codecool.fas.repository.BookedFlightRepository;
 import com.codecool.fas.repository.FlightRepository;
 import com.codecool.fas.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -51,4 +52,17 @@ public class FavouriteController {
 
         return ResponseEntity.ok("Success");
     }
+
+    @GetMapping("/flight")
+    private ResponseEntity getBookedFlights(){
+        try {
+            String userName = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+            UserInfo user = userRepository.findByUsername(userName).get();
+            List<BookedFlight> bookedFlights = bookedFlightRepository.findAllByUserIs(user);
+            return ResponseEntity.ok("Success");
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error while getting tickets!", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
