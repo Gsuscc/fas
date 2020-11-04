@@ -51,11 +51,8 @@ public class Flight {
     @Column(nullable = false)
     private LocalTime travelTime;
 
-    @OneToMany(mappedBy = "toFlight", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "flight", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonBackReference
-    private List<BookedFlight> bookedToFlightList;
+    private List<BookedTicket> bookedToFlightList;
 
-    @OneToMany(mappedBy = "returnFlight", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @JsonBackReference
-    private List<BookedFlight> bookedReturnFlightList;
 }

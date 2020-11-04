@@ -1,6 +1,7 @@
 package com.codecool.fas.controller;
 
 import com.codecool.fas.entity.BookedFlight;
+import com.codecool.fas.entity.BookedTicket;
 import com.codecool.fas.entity.Flight;
 import com.codecool.fas.entity.UserInfo;
 import com.codecool.fas.repository.BookedFlightRepository;
@@ -11,9 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @RestController
 @CrossOrigin
@@ -31,6 +34,14 @@ public class FavouriteController {
         this.bookedFlightRepository = bookedFlightRepository;
     }
 
+    private List<BookedTicket> generateTickets(Flight flight, BookedFlight bookedFlight, int amount) {
+        return IntStream.range(0, amount).boxed().map(x ->
+                BookedTicket.builder()
+                        .flight(flight)
+                        .bookedFlight(bookedFlight)
+                        .build()
+        ).collect(Collectors.toList());
+    }
 
     @GetMapping("/book")
     private ResponseEntity bookFlight(@RequestParam Long id ,@RequestParam(required = false) Long returnId, @RequestParam Integer person){
@@ -41,14 +52,19 @@ public class FavouriteController {
         Flight toFlight = flightRepository.getOne(id);
         Flight returnFlight = returnId != null ? flightRepository.getOne(returnId) : null;
 
-        List<BookedFlight> bookedFlights = IntStream.range(0, person).boxed().map(x ->
-                     BookedFlight.builder()
-                            .toFlight(toFlight)
-                            .returnFlight(returnFlight)
-                            .user(user)
-                            .build()
-        ).collect(Collectors.toList());
-        bookedFlightRepository.saveAll(bookedFlights);
+        BookedFlight bookedFlight = BookedFlight.builder()
+                .bookedAt(LocalDateTime.now())
+                .user(user)
+                .passengers(person)
+                .build();
+
+        List<BookedTicket> toTickets = generateTickets(toFlight, bookedFlight, person);
+        List<BookedTicket> returnTickets = generateTickets(returnFlight, bookedFlight, person);
+
+        bookedFlight.setTickets(Stream.concat(toTickets.stream(), returnTickets.stream())
+                .collect(Collectors.toList()));
+
+        bookedFlightRepository.save(bookedFlight);
 
         return ResponseEntity.ok("Success");
     }

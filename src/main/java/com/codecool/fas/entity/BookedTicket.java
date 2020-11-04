@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -14,22 +12,18 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Builder
-public class BookedFlight {
+public class BookedTicket {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private LocalDateTime bookedAt;
-
-    private Integer passengers;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST})
     @JsonBackReference
-    private UserInfo user;
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    private BookedFlight bookedFlight;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "bookedFlight", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<BookedTicket> tickets;
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    private Flight flight;
 
 }
