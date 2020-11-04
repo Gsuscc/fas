@@ -56,6 +56,8 @@ public class FavouriteController {
                 .bookedAt(LocalDateTime.now())
                 .user(user)
                 .passengers(person)
+                .fromAirport(toFlight.getFromAirport().getLabel())
+                .toAirport(toFlight.getToAirport().getLabel())
                 .build();
 
         List<BookedTicket> toTickets = generateTickets(toFlight, bookedFlight, person);

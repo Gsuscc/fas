@@ -24,6 +24,9 @@ public class BookedFlight {
 
     private Integer passengers;
 
+    private String fromAirport;
+    private String toAirport;
+
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JsonBackReference
     private UserInfo user;
