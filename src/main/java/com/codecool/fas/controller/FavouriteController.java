@@ -59,7 +59,7 @@ public class FavouriteController {
             String userName = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
             UserInfo user = userRepository.findByUsername(userName).get();
             List<BookedFlight> bookedFlights = bookedFlightRepository.findAllByUserIs(user);
-            return ResponseEntity.ok("Success");
+            return ResponseEntity.ok(bookedFlights);
         } catch (Exception e) {
             return new ResponseEntity<>("Error while getting tickets!", HttpStatus.BAD_REQUEST);
         }

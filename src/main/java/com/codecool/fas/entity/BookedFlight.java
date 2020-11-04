@@ -1,5 +1,6 @@
 package com.codecool.fas.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -18,7 +19,7 @@ public class BookedFlight {
     private Long id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
-    @JsonManagedReference
+    @JsonBackReference
     private UserInfo user;
 
     @JsonManagedReference
