@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -61,7 +62,9 @@ public class FavouriteController {
                 .build();
 
         List<BookedTicket> toTickets = generateTickets(toFlight, bookedFlight, person);
-        List<BookedTicket> returnTickets = generateTickets(returnFlight, bookedFlight, person);
+        List<BookedTicket> returnTickets = returnFlight == null
+                ? new ArrayList<>()
+                : generateTickets(returnFlight, bookedFlight, person);
 
         bookedFlight.setTickets(Stream.concat(toTickets.stream(), returnTickets.stream())
                 .collect(Collectors.toList()));
