@@ -19,11 +19,11 @@ public class UserCity {
     @GeneratedValue
     private Long id;
 
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private City city;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private UserInfo userInfo;
 

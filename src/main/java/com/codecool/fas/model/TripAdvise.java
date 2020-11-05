@@ -4,6 +4,7 @@ import com.codecool.fas.entity.Airport;
 
 public class TripAdvise {
 
+    private Long cityId;
     private String pictureUrl;
     private Airport fromAirport;
     private Airport toAirport;
@@ -15,7 +16,8 @@ public class TripAdvise {
     private String country;
 
 
-    public TripAdvise(String pictureUrl, Airport fromAirport, Airport toAirport, int year, int month, int day, String price, String city, String country) {
+    public TripAdvise(Long cityId, String pictureUrl, Airport fromAirport, Airport toAirport, int year, int month, int day, String price, String city, String country) {
+        this.cityId = cityId;
         this.pictureUrl = pictureUrl;
         this.fromAirport = fromAirport;
         this.toAirport = toAirport;
@@ -97,5 +99,13 @@ public class TripAdvise {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Long getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
     }
 }

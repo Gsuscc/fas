@@ -70,6 +70,7 @@ public class TripAdviseJpa implements TripAdviseDao {
     private void addAdvise(List<TripAdvise> tripAdvises, City city, Flight flight, Airport fromAirport, Airport toAirport) {
         tripAdvises.add(
                 new TripAdvise(
+                        city.getId(),
                         city.getCityImage().toString(),
                         fromAirport,
                         toAirport,
