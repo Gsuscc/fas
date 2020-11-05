@@ -66,12 +66,24 @@ public class FavouriteController {
                 ? new ArrayList<>()
                 : generateTickets(returnFlight, bookedFlight, person);
 
-        bookedFlight.setTickets(Stream.concat(toTickets.stream(), returnTickets.stream())
-                .collect(Collectors.toList()));
+        bookedFlight.setTickets(getCombinedBookedTickets(toTickets, returnTickets));
 
         bookedFlightRepository.save(bookedFlight);
 
         return ResponseEntity.ok("Success");
+    }
+
+    private List<BookedTicket> getCombinedBookedTickets(List<BookedTicket> toTickets, List<BookedTicket> returnTickets) {
+        return IntStream.range(0, Math.max(toTickets.size(), returnTickets.size()))
+                    .boxed()
+                    .flatMap(i -> {
+                        if (i < Math.min(toTickets.size(), returnTickets.size()))
+                            return Stream.of(toTickets.get(i), returnTickets.get(i));
+                        else if (i < toTickets.size())
+                            return Stream.of(toTickets.get(i));
+                        return Stream.of(returnTickets.get(i));
+                    })
+                    .collect(Collectors.toList());
     }
 
     @GetMapping("/flight")
