@@ -111,7 +111,7 @@ public class FavouriteController {
     @GetMapping("/getCities")
     private ResponseEntity getAllUserCities () {
         UserInfo user = getUserInfo();
-        List<UserCity> cities = userCityRepository.findAllByUserInfoIs(user);
+        List<UserCity> cities = userCityRepository.findAllByUserInfoIsOrderById(user);
         return ResponseEntity.ok(cities);
     }
 
