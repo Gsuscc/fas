@@ -45,10 +45,7 @@ public class FavouriteController {
 
     @GetMapping("/book")
     private ResponseEntity bookFlight(@RequestParam Long id ,@RequestParam(required = false) Long returnId, @RequestParam Integer person){
-        String userName = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-
-
-        UserInfo user = userRepository.findByUsername(userName).get();
+        UserInfo user = getUserInfo();
         Flight toFlight = flightRepository.getOne(id);
         Flight returnFlight = returnId != null ? flightRepository.getOne(returnId) : null;
 
@@ -76,8 +73,7 @@ public class FavouriteController {
     @GetMapping("/flight")
     private ResponseEntity getBookedFlights(){
         try {
-            String userName = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-            UserInfo user = userRepository.findByUsername(userName).get();
+            UserInfo user = getUserInfo();
             List<BookedFlight> bookedFlights = bookedFlightRepository.findAllByUserIs(user);
             return ResponseEntity.ok(bookedFlights);
         } catch (Exception e) {
@@ -87,8 +83,7 @@ public class FavouriteController {
 
     @GetMapping("/addCity")
     private ResponseEntity addCityToFavourites (@RequestParam Long id){
-        String userName = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        UserInfo user = userRepository.findByUsername(userName).get();
+        UserInfo user = getUserInfo();
         City city = cityRepository.findById(id).get();
         UserCity userCity = UserCity.builder().city(city).userInfo(user).build();
 
@@ -99,10 +94,23 @@ public class FavouriteController {
         return ResponseEntity.ok("Success");
     }
 
+    @GetMapping("/removeCity")
+    private ResponseEntity removeCityFromFavourites (@RequestParam Long id){
+        UserInfo user = getUserInfo();
+        City city = cityRepository.findById(id).get();
+        userCityRepository.deleteUserCityByCityIsAndUserInfoIs(city, user);
+        return ResponseEntity.ok("Success");
+    }
+
+    private UserInfo getUserInfo() {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        return userRepository.findByUsername(userName).get();
+    }
+
+
     @GetMapping("/getCities")
     private ResponseEntity getAllUserCities () {
-        String userName = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        UserInfo user = userRepository.findByUsername(userName).get();
+        UserInfo user = getUserInfo();
         List<UserCity> cities = userCityRepository.findAllByUserInfoIs(user);
         return ResponseEntity.ok(cities);
     }
