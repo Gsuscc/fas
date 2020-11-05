@@ -10,5 +10,6 @@ import java.util.List;
 public interface UserCityRepository extends JpaRepository<UserCity, Long> {
 
     boolean existsByCityAndUserInfo(City city, UserInfo user);
+    List<UserCity> findAllByUserInfoIs(UserInfo user);
 
 }

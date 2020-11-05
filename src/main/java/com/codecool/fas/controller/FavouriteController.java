@@ -96,10 +96,15 @@ public class FavouriteController {
             return new ResponseEntity<>("Already liked", HttpStatus.BAD_REQUEST);
         }
             userCityRepository.save(userCity);
-
-
         return ResponseEntity.ok("Success");
+    }
 
+    @GetMapping("/getCities")
+    private ResponseEntity getAllUserCities () {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        UserInfo user = userRepository.findByUsername(userName).get();
+        List<UserCity> cities = userCityRepository.findAllByUserInfoIs(user);
+        return ResponseEntity.ok(cities);
     }
 
 
