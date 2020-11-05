@@ -4,20 +4,20 @@ import com.codecool.fas.entity.UserInfo;
 import com.codecool.fas.model.UserCredentials;
 import com.codecool.fas.repository.UserRepository;
 import com.codecool.fas.security.JwtTokenServices;
+import com.codecool.fas.util.EmailServiceImpl;
 import com.codecool.fas.util.EmailValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,17 +33,19 @@ public class AuthController {
     private final UserRepository userRepository;
     private final JwtTokenServices jwtTokenServices;
     private final PasswordEncoder passwordEncoder;
+    private final EmailServiceImpl emailService;
 
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, JwtTokenServices jwtTokenServices) {
+    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, JwtTokenServices jwtTokenServices, EmailServiceImpl emailService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.jwtTokenServices = jwtTokenServices;
+        this.emailService = emailService;
         this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     }
 
     @PostMapping("/register")
-    private ResponseEntity registerUser(@RequestBody UserCredentials userCredentials){
+    private ResponseEntity registerUser(@RequestBody UserCredentials userCredentials) throws MessagingException {
         if (!EmailValidator.validate(userCredentials.getEmail())) {
             return new ResponseEntity<>("Not a valid email address!", HttpStatus.I_AM_A_TEAPOT);
         }
@@ -59,6 +61,15 @@ public class AuthController {
                     .password(passwordEncoder.encode(userCredentials.getPassword()))
                     .email(userCredentials.getEmail())
                     .build()
+        );
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("name", userCredentials.getUsername());
+
+        emailService.sendMessageUsingThymeleafTemplate(
+                userCredentials.getEmail(),
+                "Greetings",
+                data
         );
 
         return ResponseEntity.ok("Success");
