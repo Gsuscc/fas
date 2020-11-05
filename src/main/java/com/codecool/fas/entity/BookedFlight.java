@@ -1,9 +1,12 @@
 package com.codecool.fas.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,15 +20,19 @@ public class BookedFlight {
     @GeneratedValue
     private Long id;
 
+    private LocalDateTime bookedAt;
+
+    private Integer passengers;
+
+    private String fromAirport;
+    private String toAirport;
+
     @ManyToOne(cascade = {CascadeType.PERSIST})
-    @JsonManagedReference
+    @JsonBackReference
     private UserInfo user;
 
     @JsonManagedReference
-    @ManyToOne(cascade = {CascadeType.PERSIST})
-    private Flight toFlight;
+    @OneToMany(mappedBy = "bookedFlight", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<BookedTicket> tickets;
 
-    @JsonManagedReference
-    @ManyToOne(cascade = {CascadeType.PERSIST})
-    private Flight returnFlight;
 }
