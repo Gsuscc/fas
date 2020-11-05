@@ -1,12 +1,7 @@
 package com.codecool.fas.controller;
 
-import com.codecool.fas.entity.BookedFlight;
-import com.codecool.fas.entity.BookedTicket;
-import com.codecool.fas.entity.Flight;
-import com.codecool.fas.entity.UserInfo;
-import com.codecool.fas.repository.BookedFlightRepository;
-import com.codecool.fas.repository.FlightRepository;
-import com.codecool.fas.repository.UserRepository;
+import com.codecool.fas.entity.*;
+import com.codecool.fas.repository.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,11 +23,15 @@ public class FavouriteController {
     private FlightRepository flightRepository;
     private UserRepository userRepository;
     private BookedFlightRepository bookedFlightRepository;
+    private CityRepository cityRepository;
+    private UserCityRepository userCityRepository;
 
-    public FavouriteController(FlightRepository flightRepository, UserRepository userRepository, BookedFlightRepository bookedFlightRepository) {
+    public FavouriteController(FlightRepository flightRepository, UserRepository userRepository, BookedFlightRepository bookedFlightRepository, CityRepository cityRepository, UserCityRepository userCityRepository) {
         this.flightRepository = flightRepository;
         this.userRepository = userRepository;
         this.bookedFlightRepository = bookedFlightRepository;
+        this.cityRepository = cityRepository;
+        this.userCityRepository = userCityRepository;
     }
 
     private List<BookedTicket> generateTickets(Flight flight, BookedFlight bookedFlight, int amount) {
@@ -73,18 +72,6 @@ public class FavouriteController {
         return ResponseEntity.ok("Success");
     }
 
-    private List<BookedTicket> getCombinedBookedTickets(List<BookedTicket> toTickets, List<BookedTicket> returnTickets) {
-        return IntStream.range(0, Math.max(toTickets.size(), returnTickets.size()))
-                    .boxed()
-                    .flatMap(i -> {
-                        if (i < Math.min(toTickets.size(), returnTickets.size()))
-                            return Stream.of(toTickets.get(i), returnTickets.get(i));
-                        else if (i < toTickets.size())
-                            return Stream.of(toTickets.get(i));
-                        return Stream.of(returnTickets.get(i));
-                    })
-                    .collect(Collectors.toList());
-    }
 
     @GetMapping("/flight")
     private ResponseEntity getBookedFlights(){
@@ -98,4 +85,34 @@ public class FavouriteController {
         }
     }
 
+    @GetMapping("/addCity")
+    private ResponseEntity addCityToFavourites (@RequestParam Long id){
+        String userName = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        UserInfo user = userRepository.findByUsername(userName).get();
+        City city = cityRepository.findById(id).get();
+        UserCity userCity = UserCity.builder().city(city).userInfo(user).build();
+
+        if (userCityRepository.existsByCityAndUserInfo(city, user)){
+            return new ResponseEntity<>("Already liked", HttpStatus.BAD_REQUEST);
+        }
+            userCityRepository.save(userCity);
+
+
+        return ResponseEntity.ok("Success");
+
+    }
+
+
+    private List<BookedTicket> getCombinedBookedTickets(List<BookedTicket> toTickets, List<BookedTicket> returnTickets) {
+        return IntStream.range(0, Math.max(toTickets.size(), returnTickets.size()))
+                    .boxed()
+                    .flatMap(i -> {
+                        if (i < Math.min(toTickets.size(), returnTickets.size()))
+                            return Stream.of(toTickets.get(i), returnTickets.get(i));
+                        else if (i < toTickets.size())
+                            return Stream.of(toTickets.get(i));
+                        return Stream.of(returnTickets.get(i));
+                    })
+                    .collect(Collectors.toList());
+    }
 }

@@ -45,6 +45,10 @@ public class UserInfo {
     @JsonBackReference
     List<BookedFlight> bookedFlights;
 
+    @OneToMany(mappedBy = "userInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonBackReference
+    List<UserCity> cities;
+
 
 //
 //    // roles of the user (ADMIN, USER,..)
