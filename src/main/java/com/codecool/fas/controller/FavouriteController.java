@@ -115,6 +115,14 @@ public class FavouriteController {
         return ResponseEntity.ok(cities);
     }
 
+    @GetMapping("/notify")
+    private ResponseEntity setNotificationForACity(@RequestParam Long id, @RequestParam Boolean isRequested){
+
+        userCityRepository.updateNotification(isRequested,getUserInfo(),cityRepository.findById(id).get());
+
+        return ResponseEntity.ok("Success");
+    }
+
 
     private List<BookedTicket> getCombinedBookedTickets(List<BookedTicket> toTickets, List<BookedTicket> returnTickets) {
         return IntStream.range(0, Math.max(toTickets.size(), returnTickets.size()))
